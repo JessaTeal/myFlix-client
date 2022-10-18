@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-
+import PropTypes from 'prop-types';
 
 import {LoginView} from '../login-view/login-view';
 import {MovieCard} from '../movie-card/movie-card';
@@ -52,9 +52,9 @@ export class MainView extends React.Component {
         return (
             <div className="main-view">
                 {selectedMovie
-                    ? <MovieView movie={selectedMovie} onBackClick={newSelectedMovie => {this.setSelectedMovie(newSelectedMovie); }}/>
-                    : movies.map(movie => (
-                        <MovieCard key={movie._id} movie={movie} onMovieClick={(movie) => {this.setSelectedMovie(movie)}}/>
+                    ? <MovieView movie={selectedMovie} onBackClick={(newSelectedMovie) => {this.setSelectedMovie(newSelectedMovie); }}/>
+                    : movies.map((movie) => (
+                        <MovieCard key={movie._id} movie={movie} onMovieClick={(newSelectedMovie) => {this.setSelectedMovie(newSelectedMovie)}}/>
                     ))
                 }
             </div>
