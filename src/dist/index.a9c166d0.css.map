@@ -1,0 +1,1 @@
+{"mappings":"AAEA;;;;ACFA","sources":["src/index.scss","src/components/login-view/login-view.scss"],"sourcesContent":["$color: steelblue;\n\nMyFlixApplication {\n    background-color: $color;\n}\n",".login {\n    text-align: center;\n}"],"names":[],"version":3,"file":"index.a9c166d0.css.map","sourceRoot":"/__parcel_source_root/"}
