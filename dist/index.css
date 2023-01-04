@@ -13,23 +13,6 @@ img {
   font-size: 30px;
 }
 
-header {
-  height: 100px;
-  color: #fff;
-  background-color: teal;
-  padding: 25px;
-}
-
-.app-container {
-  max-width: 100%;
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
-
-#root, Container-fluid {
-  width: 100%;
-}
-
 :root {
   --bs-blue: #0d6efd;
   --bs-indigo: #6610f2;
@@ -12060,4 +12043,17 @@ textarea.form-control-lg {
   }
 }
 
-/*# sourceMappingURL=index.27d8da6b.css.map */
+header {
+  height: 100px;
+  color: #fff;
+  background-color: teal;
+  padding: 25px;
+}
+
+.app-container {
+  max-width: 100%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+/*# sourceMappingURL=index.css.map */

@@ -1,18 +1,20 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import './registration-view.scss';
 import PropTypes from 'prop-types';
 
 export function RegistrationView(props) {
-    const[ username, setUsername ] = useState('');
-    const[ password, setPassword ] = useState('');
-    const[ birthday, setBirthday ] = useState('');
-    const[ email, setEmail ] = useState('');
+
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [birthday, setBirthday] = useState('');
+    const [email, setEmail] = useState('');
 
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(username, password, birthday, email);
         props.Registration(username);
     };
+
     return (
         <form>
             <label>
@@ -30,18 +32,19 @@ export function RegistrationView(props) {
             <label>
                 Email:
                 <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-            </label>               
+            </label>
             <button type='button' onClick={handleSubmit}>Register</button>
-            </form>
-        );
-    }
+        </form>
+    );
+}
 
-    RegistrationView.propTypes = {
-        registration: PropTypes.shape ({
-            Username: PropTypes.string.isRequired,
-            Password: PropTypes.string.isRequired,
-            Birthday: PropTypes.number.isRequired,
-            Email: PropTypes.string.isRequired
-        }).isRequired,
-        onClick: PropTypes.func.isRequired
-    };
+RegistrationView.propTypes = {
+    registration: PropTypes.shape({
+        Username: PropTypes.string.isRequired,
+        Password: PropTypes.string.isRequired,
+        Birthday: PropTypes.number.isRequired,
+        Email: PropTypes.string.isRequired
+    }).isRequired,
+    onClick: PropTypes.func.isRequired
+};
+

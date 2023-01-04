@@ -45,6 +45,7 @@ export class MainView extends React.Component {
     }
 
     render() {
+
         const { movies, selectedMovie, user } = this.state;
 
         if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
@@ -55,17 +56,17 @@ export class MainView extends React.Component {
             <Row className="main-view justify-content-md-center">
                 {selectedMovie
                     ? (
-                            <Col md={8}>
+                            <Col md={5}>
                             <MovieView movie={selectedMovie} onBackClick={(newSelectedMovie) => {this.setSelectedMovie(newSelectedMovie); }}/>
                             </Col>
                     )
                     : (
                             movies.map((movie) => (
-                                <Col md={3}>
+                                <Col md={2}>
                                     <MovieCard key={movie._id} movie={movie} onMovieClick={(newSelectedMovie) => {this.setSelectedMovie(newSelectedMovie); }}/>
                                 </Col>
                         ))
                     )
                 }
             </Row>
-        );
+    )}};
