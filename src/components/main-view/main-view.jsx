@@ -1,15 +1,16 @@
 import React from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
+import { useState } from 'react';
 
-import {LoginView} from '../login-view/login-view';
-import {MovieCard} from '../movie-card/movie-card';
-import {MovieView} from '../movie-view/movie-view';
+import { LoginView } from '../login-view/login-view';
+import { MovieCard } from '../movie-card/movie-card';
+import { MovieView } from '../movie-view/movie-view';
 
 
 export class MainView extends React.Component {
 
-    constructor(){
+    constructor() {
         super();
         this.state = {
             movies: [],
@@ -18,16 +19,16 @@ export class MainView extends React.Component {
         };
     }
 
-    componentDidMount(){
+    componentDidMount() {
         axios.get('https://jessaflix.herokuapp.com/movies')
-        .then(response => {
-            this.setState({
-                movies: response.data
+            .then(response => {
+                this.setState({
+                    movies: response.data
+                });
+            })
+            .catch(error => {
+                console.log(error)
             });
-        })
-        .catch(error => {
-            console.log(error)
-        });
     }
 
     setSelectedMovie(movie) {
@@ -52,12 +53,12 @@ export class MainView extends React.Component {
         return (
             <div className="main-view">
                 {selectedMovie
-                    ? <MovieView movie={selectedMovie} onBackClick={(newSelectedMovie) => {this.setSelectedMovie(newSelectedMovie); }}/>
+                    ? <MovieView movie={selectedMovie} onBackClick={(newSelectedMovie) => { this.setSelectedMovie(newSelectedMovie); }} />
                     : movies.map((movie) => (
-                        <MovieCard key={movie._id} movie={movie} onMovieClick={(newSelectedMovie) => {this.setSelectedMovie(newSelectedMovie)}}/>
+                        <MovieCard key={movie._id} movie={movie} onMovieClick={(newSelectedMovie) => { this.setSelectedMovie(newSelectedMovie) }} />
                     ))
                 }
             </div>
         );
-        }
     }
+}

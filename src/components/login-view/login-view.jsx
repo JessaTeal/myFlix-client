@@ -1,28 +1,49 @@
 import React, { useState } from 'react';
 import './login-view.scss';
-import PropTypes from 'prop-types';
+import { useState } from 'react';
 
-export function LoginView(props) {
+export const LoginView = ({ onLoggedIn }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log(username, password);
-        props.onLoggedIn(username);
+    const handleSubmit = (event) => {
+        event.preventDefault();
+
+        const data = {
+            access: username,
+            secret: password
+        };
+
+        fetch("https://jessaflix.herokuapp.com/users", {
+            method: "POST",
+            body: JSON.stringify(data)
+        }).then((response) => {
+            if (response.ok) {
+                onLoggedIn(username);
+            } else {
+                alert("Login failed");
+            }
+        });
     };
     return (
-        <form className="login">
-            <label className="username">
+        <form onSubmit={handleSubmit}>
+            <label>
                 Username:
-                <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} required />
+                <input
+                    type="text"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                />
             </label>
             <label>
                 Password:
-                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+                <input
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                />
             </label>
-            <button type='button' onClick={handleSubmit}>Submit</button>
-            <button type='button' onClick={handleSubmit}>New User!</button>
+            <button type="submit">Submit</button>
         </form>
     );
-}
+};
