@@ -6,12 +6,8 @@ import { RegistrationView } from '../registration-view/registration-view';
 
 export const LoginView = ({ onLoggedIn }) => {
 
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log(username, password);
+    const handleSubmit = (event) => {
+        event.preventDefault();
 
         const data = {
             Username: username,
@@ -24,11 +20,13 @@ export const LoginView = ({ onLoggedIn }) => {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(data)
-        }).then((response) => response.json())
+        })
+            .then((response) => response.json())
             .then((data) => {
+                console.log("Login response: ", data);
                 if (data.user) {
-                    localStorage.setItem("username", JSON.stringify(data.user.Username));
-                    localStorage.setItem("password", data.user.Password)
+                    localStorage.setItem("user", JSON.stringify(data.user));
+                    localStorage.setItem("token", data.token);
                     onLoggedIn(data.user, data.token);
                 } else {
                     alert("No such user");
@@ -37,29 +35,30 @@ export const LoginView = ({ onLoggedIn }) => {
             .catch((e) => {
                 alert("Something went wrong");
             });
-    };
 
-    return (
-        <Form onSubmit={handleSubmit}>
-            <label>
-                Username:
-                <input
-                    type="text"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    required
-                />
-            </label>
-            <label>
-                Password:
-                <input
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                />
-            </label>
-            <button type="submit">Submit</button>
-        </Form>
-    );
+
+        return (
+            <form onSubmit={handleSubmit}>
+                <label>
+                    Username:
+                    <input
+                        type="text"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                        required
+                    />
+                </label>
+                <label>
+                    Password:
+                    <input
+                        type="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                    />
+                </label>
+                <button type="submit">Submit</button>
+            </form>
+        );
+    }
 }
