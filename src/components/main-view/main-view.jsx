@@ -28,7 +28,7 @@ export function MainView() {
         if (!token) return;
 
         fetch('https://jessaflix.herokuapp.com/movies', {
-            headers: { Authorization: 'Bearer ${token}' },
+            headers: { Authorization: `Bearer ${token}` },
         })
             .then((response) => response.json())
             .then((movies) => {
@@ -52,7 +52,7 @@ export function MainView() {
     return (
         <div>
             {movies.map((movie) => {
-                <MovieCard
+                return <MovieCard
                     key={movie._id}
                     movie={movie}
                     onMovieClick={(newSelectedMovie) => {
