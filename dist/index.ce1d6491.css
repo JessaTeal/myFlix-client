@@ -3,14 +3,6 @@
   margin-bottom: 20px;
 }
 
-
-
-
-
-.movieCard {
-  margin-top: 20px;
-}
-
 img {
   width: 350px;
   height: auto;
@@ -19,5 +11,13 @@ img {
 .movie-title {
   font-size: 30px;
 }
+
+.movieCard {
+  margin-top: 20px;
+}
+
+
+
+
 
 /*# sourceMappingURL=index.ce1d6491.css.map */
