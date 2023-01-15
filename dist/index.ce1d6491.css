@@ -3,6 +3,14 @@
   margin-bottom: 20px;
 }
 
+.navigation {
+  height: 100px;
+  margin: 0;
+  padding: 0;
+}
+
+
+
 img {
   width: 350px;
   height: auto;
@@ -15,8 +23,6 @@ img {
 .movieCard {
   margin-top: 20px;
 }
-
-
 
 
 

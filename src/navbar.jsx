@@ -9,7 +9,9 @@ import './navbar.scss';
 import onLoggedIn from './components/main-view/main-view';
 import { MainView } from './components/main-view/main-view';
 
-function Navigation() {
+export const Navigation = () => {
+  const storedUser = JSON.parse(localStorage.getItem("user"));
+  const [setUser] = useState(storedUser ? storedUser : null)
 
   return (
     <Container className="navigation">
@@ -19,7 +21,6 @@ function Navigation() {
         <Navbar.Collapse className="justify-content-end" id="basic-navbar-nav">
           <Nav>
             <Nav.Link onClick="handleClick">Home</Nav.Link>
-            <Nav.Link href="#link">Link</Nav.Link>
             <NavDropdown title="Search By Genre" id="basic-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.2">
@@ -30,15 +31,11 @@ function Navigation() {
               <NavDropdown.Item href="#action/3.5">Adventure</NavDropdown.Item>
             </NavDropdown>
           </Nav>
-          <Nav.Link onClick={() => {
-            localStorage.clear();
-            console.clear();
-          }}>Logout</Nav.Link>
+          <Nav.Link onClick={() => { setUser(null); }}>Logout</Nav.Link>
         </Navbar.Collapse>
       </Navbar>
     </Container>
 
   );
 }
-
-export default Navigation;
+export default Navigation
