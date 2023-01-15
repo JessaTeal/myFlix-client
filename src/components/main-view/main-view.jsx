@@ -5,6 +5,7 @@ import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
 import Navigation from '../../navbar.jsx';
 
+
 export function MainView() {
 
     const storedUser = JSON.parse(localStorage.getItem("user"));
@@ -56,6 +57,8 @@ export function MainView() {
     return (
         <div>
             <Navigation />
+            <button onClick={() => { setUser(null); }}>Logout</button>
+
             {movies.map((movie) => {
                 return <MovieCard
                     key={movie._id}
@@ -65,7 +68,6 @@ export function MainView() {
                     }}
                 />
             })}
-            <button onClick={() => { setUser(null); }}>Logout</button>
         </div>
     )
 }

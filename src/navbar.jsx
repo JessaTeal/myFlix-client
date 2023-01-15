@@ -1,17 +1,10 @@
-import { useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import RegistrationView from './components/registration-view/registration-view';
 import { useState } from 'react';
 import './navbar.scss';
-import onLoggedIn from './components/main-view/main-view';
-import { MainView } from './components/main-view/main-view';
-
 export const Navigation = () => {
-  const storedUser = JSON.parse(localStorage.getItem("user"));
-  const [setUser] = useState(storedUser ? storedUser : null)
 
   return (
     <Container className="navigation">
@@ -31,7 +24,6 @@ export const Navigation = () => {
               <NavDropdown.Item href="#action/3.5">Adventure</NavDropdown.Item>
             </NavDropdown>
           </Nav>
-          <Nav.Link onClick={() => { setUser(null); }}>Logout</Nav.Link>
         </Navbar.Collapse>
       </Navbar>
     </Container>
