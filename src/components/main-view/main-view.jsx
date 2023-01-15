@@ -4,6 +4,10 @@ import { LoginView } from '../login-view/login-view';
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
 import Navigation from '../../navbar.jsx';
+import { SignupView } from '../signup-view/signup-view';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import { Container } from 'react-bootstrap';
 
 
 export function MainView() {
@@ -30,14 +34,18 @@ export function MainView() {
 
     if (!user) {
         return (
-            <LoginView
-                onLoggedIn={(user, token) => {
-                    setUser(user);
-                    setToken(token);
-                }}
-            />
-        );
-    }
+            <>
+                <LoginView
+                    onLoggedIn={(user, token) => {
+                        setUser(user);
+                        setToken(token);
+                    }}
+                />
+                or
+                <SignupView />
+            </>
+        )
+    };
 
     if (selectedMovie) {
         return (
@@ -57,17 +65,17 @@ export function MainView() {
     return (
         <div>
             <Navigation />
-            <button onClick={() => { setUser(null); }}>Logout</button>
-
-            {movies.map((movie) => {
-                return <MovieCard
-                    key={movie._id}
-                    movie={movie}
-                    onMovieClick={(newSelectedMovie) => {
-                        setSelectedMovie(newSelectedMovie);
-                    }}
-                />
-            })}
+            <Container className='gridContainer'>
+                {movies.map((movie) => {
+                    return <MovieCard
+                        key={movie._id}
+                        movie={movie}
+                        onMovieClick={(newSelectedMovie) => {
+                            setSelectedMovie(newSelectedMovie);
+                        }}
+                    />
+                })}
+            </Container>
         </div>
     )
 }

@@ -22,6 +22,14 @@ img {
   margin-top: 20px;
 }
 
+.gridContainer {
+  grid-template-columns: auto auto auto auto;
+  justify-content: center;
+  align-items: center;
+  column-gap: 25px;
+  display: grid;
+}
+
 
 
 /*# sourceMappingURL=index.ce1d6491.css.map */

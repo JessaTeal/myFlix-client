@@ -23,6 +23,7 @@ export const Navigation = () => {
               <NavDropdown.Item href="#action/3.4">Musical</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.5">Adventure</NavDropdown.Item>
             </NavDropdown>
+            <Nav.Link onClick={() => { localStorage.clear(); window.location.reload(); }}>Logout</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Navbar>

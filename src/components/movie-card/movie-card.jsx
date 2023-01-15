@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import './movie-card.scss';
+import { Col, Row } from 'react-bootstrap';
 
 
 
@@ -11,8 +12,8 @@ export class MovieCard extends React.Component {
         const { movie, onMovieClick } = this.props;
 
         return (
-            <Card className='movieCard'>
-                <Card.Img variant='top' src={movie.ImagePath} onClick={() => onMovieClick(movie)} />
+            <Card className='movieCard gridContainer'>
+                <Card.Img className='gridContainer' variant='top' src={movie.ImagePath} onClick={() => onMovieClick(movie)} />
             </Card>
         );
     }
