@@ -4,23 +4,24 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import './movie-card.scss';
 import { Col, Row } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 
 
-export class MovieCard extends React.Component {
-    render() {
-        const { movie, onMovieClick } = this.props;
+export const MovieCard = ({ movie }) => {
+    return (
+        <Card className='card h-100'>
 
-        return (
-            <Card className='card h-100'>
+            <Link to={'/movies/${encodeURIComponent(movie_id)}'}>
+                <Card.Img className='gridContainer' variant='top' src={movie.ImagePath} />
+            </Link>
+            <Card.Body>
 
-                <Card.Img className='gridContainer' variant='top' src={movie.ImagePath} onClick={() => onMovieClick(movie)} />
                 <Card.Title className='text-center'> {movie.Title} </Card.Title>
-                <Card.Body className='text-center'> {movie.Genre.Name} </Card.Body>
-                <Button className='movieButton' onClick={() => onMovieClick(movie)}>View Movie</Button>
-            </Card>
-        );
-    }
+                <Card.Text className='text-center'> {movie.Genre.Name} </Card.Text>
+            </Card.Body>
+        </Card>
+    );
 }
 
 MovieCard.propTypes = {
