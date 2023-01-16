@@ -3,6 +3,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import PropTypes from 'prop-types';
 import './movie-view.scss';
+import Navigation from '../../navbar';
 
 export class MovieView extends React.Component {
 
@@ -10,29 +11,25 @@ export class MovieView extends React.Component {
         const { movie, onBackClick } = this.props;
 
         return (
+            <div>
+                <Navigation />
 
-            <div className="movie-view">
-                <Col className="movie-title">
-                    <span className="value">{movie.Title}</span>
-                </Col>
-                <Col className="movie-director">
-                    <span className="label">Director: </span>
-                    <span className="value">{movie.Director.Name}</span>
-                </Col>
-                <Col className="movie-genre">
-                    <span className="label">Genre: </span>
-                    <span className="value">{movie.Genre.Name}</span>
-                </Col>
-                <Row>
-                    <Col className="movie-poster">
-                        <img crossOrigin={"anonymous"} src={movie.ImagePath} />
+                <Row className="movie-view text-center">
+                    <Col>
+                        <img className='image' crossOrigin={"anonymous"} src={movie.ImagePath} />
                     </Col>
-                    <Col className="movie-description">
-                        <span className="label">Description: </span>
-                        <span className="value">{movie.Description}</span>
+
+                    <Col className="text-center">
+                        <span className="movie-title rightColumn">{movie.Title}</span>
+                        <span className="rightColumn">Director: {movie.Director.Name} </span>
+
+                        <span className="rightColumn">Genre: {movie.Genre.Name} </span>
+                        <span className="rightColumn">{movie.Description}</span>
+                        <button onClick={() => { onBackClick(null); }}>Back</button>
+
+
                     </Col>
                 </Row>
-                <button onClick={() => { onBackClick(null); }}>Back</button>
             </div>
         );
     }

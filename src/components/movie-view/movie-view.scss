@@ -1,7 +1,16 @@
-img {
-    width: 100%;
+.image {
+    width: 75%;
 }
 
 .movie-title {
+    display: flex;
     font-size: 30px;
+    align-items: center;
+}
+
+.rightColumn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
 }

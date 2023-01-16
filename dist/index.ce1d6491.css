@@ -12006,7 +12006,6 @@ textarea.form-control-lg {
 }
 
 .navigation {
-  height: 100%;
   background-color: red;
   font-size: larger;
 }
@@ -12020,12 +12019,21 @@ textarea.form-control-lg {
   color: #fff;
 }
 
-img {
-  width: 100%;
+.image {
+  width: 75%;
 }
 
 .movie-title {
+  align-items: center;
   font-size: 30px;
+  display: flex;
+}
+
+.rightColumn {
+  vertical-align: middle;
+  justify-content: center;
+  align-items: center;
+  display: flex;
 }
 
 .movieCard {
