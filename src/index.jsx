@@ -11,7 +11,7 @@ class MyFlixApplication extends React.Component {
 
     render() {
         return (
-            <Container fluid>
+            <Container style={{ border: "1px solid red" }}>
                 <MainView />
             </Container>
         );
