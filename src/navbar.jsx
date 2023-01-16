@@ -7,12 +7,12 @@ import './navbar.scss';
 export const Navigation = () => {
 
   return (
-    <Container className="navigation">
+    <Container className="navigation mb-5">
       <Navbar className="navigation" expand="lg">
-        <Navbar.Brand href="#home">myFlix</Navbar.Brand>
+        <Navbar.Brand className='navbarBrand'>jessaFlix</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse className="justify-content-end" id="basic-navbar-nav">
-          <Nav>
+          <Nav className='nav'>
             <Nav.Link onClick="handleClick">Home</Nav.Link>
             <NavDropdown title="Search By Genre" id="basic-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>

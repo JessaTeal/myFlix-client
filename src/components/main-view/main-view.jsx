@@ -32,50 +32,45 @@ export function MainView() {
             });
     }, [token]);
 
-    if (!user) {
-        return (
-            <>
-                <LoginView
-                    onLoggedIn={(user, token) => {
-                        setUser(user);
-                        setToken(token);
-                    }}
-                />
-                or
-                <SignupView />
-            </>
-        )
-    };
+    return (
+        <Row className='justify-content-md-center'>
+            {!user ? (
+                <>
+                    <h1 className='text-center'> jessaFlix! </h1>
+                    <Col md={5}>
+                        <h1 className='text-center m-5'>Login</h1>
+                        <LoginView
+                            onLoggedIn={(user, token) => {
+                                setUser(user);
+                                setToken(token);
+                            }}
+                        />
+                        <h1 className='text-center m-5'>Register Today!</h1>
+                        <SignupView />
+                    </Col>
+                </>
 
-    if (selectedMovie) {
-        return (
-            <div>
+            ) : selectedMovie ? (
                 <MovieView
                     movie={selectedMovie}
                     onBackClick={() => setSelectedMovie(null)} />
-            </div>
-        )
-    }
-
-    if (movies.length === 0) {
-        return <div> The list is empty! </div>;
-    }
-
-
-    return (
-        <div>
-            <Navigation />
-            <Container className='gridContainer'>
-                {movies.map((movie) => {
-                    return <MovieCard
-                        key={movie._id}
-                        movie={movie}
-                        onMovieClick={(newSelectedMovie) => {
-                            setSelectedMovie(newSelectedMovie);
-                        }}
-                    />
-                })}
-            </Container>
-        </div>
+            ) : movies.length === 0 ? (
+                <div> The list is empty </div>
+            ) : (
+                <>
+                    <Navigation />
+                    {movies.map((movie) => (
+                        <Col className='mb-5' key={movie._id} md={3}>
+                            <MovieCard
+                                movie={movie}
+                                onMovieClick={(newSelectedMovie) => {
+                                    setSelectedMovie(newSelectedMovie);
+                                }}
+                            />
+                        </Col>
+                    ))}
+                </>
+            )
+            }</Row>
     )
 }

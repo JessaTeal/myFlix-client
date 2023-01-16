@@ -68,7 +68,9 @@ export const SignupView = () => {
                     onChange={(e) => setBirthday(e.target.value)} required
                 />
             </Form.Group>
-            <Button type="submit">Register</Button>
+            <Form.Group controlId='button' className='text-center justify-content-md-center m-2'>
+                <Button type="submit">Register</Button>
+            </Form.Group>
         </Form>
     );
 };

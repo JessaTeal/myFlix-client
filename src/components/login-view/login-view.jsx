@@ -60,7 +60,9 @@ export const LoginView = ({ onLoggedIn }) => {
                     required
                 />
             </Form.Group>
-            <Button variant='primary' type="submit">Submit</Button>
+            <Form.Group controlId='button' className='text-center justify-content-md-center m-2'>
+                <Button variant='primary' type="submit">Submit</Button>
+            </Form.Group>
         </Form>
     );
 };
