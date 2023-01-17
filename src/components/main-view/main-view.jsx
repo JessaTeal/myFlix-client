@@ -34,8 +34,6 @@ export function MainView() {
             });
     }, [token]);
 
-    //fetch('https://jessaflix.herokuapp.com/users')
-
     return (
         <BrowserRouter>
 
@@ -56,11 +54,13 @@ export function MainView() {
                                 {!user ? (
                                     <Navigate to="/login" />
                                 ) : (
-                                    <Col md={5}>
-                                        <ProfileView />
-                                    </Col>
-                                )}
-                            </>
+                                    <>
+                                        <Col className='mb-5' md={3}>
+                                            <ProfileView />
+                                        </Col>
+                                    </>
+                                )
+                                } </>
                         } />
                     <Route
                         path="/signup"

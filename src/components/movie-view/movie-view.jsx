@@ -30,6 +30,7 @@ export const MovieView = ({ movies }) => {
                     <Link to={'/'}>
                         <Button className='back-button'>Back</Button>
                     </Link>
+                    <Button className='favoritesButton'>Add To Favorites</Button>
 
 
                 </Col>
