@@ -10,6 +10,7 @@ import { SignupView } from '../signup-view/signup-view';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { Container } from 'react-bootstrap';
+import { UpdateView } from '../update-view/update-view';
 
 
 export function MainView() {
@@ -58,12 +59,28 @@ export function MainView() {
                                 ) : (
                                     <>
                                         <Col className='mb-5' md={3}>
-                                            <ProfileView movies={movies} />
+                                            <ProfileView movies={movies} user={user} />
                                         </Col>
                                     </>
                                 )
                                 } </>
                         } />
+                    <Route
+                        path="/profile/:user"
+                        element={
+                            <>
+                                {!user ? (
+                                    <Navigate to="/login" />
+                                ) : (
+                                    <>
+                                        <Col className='mb-5' md={3}>
+                                            <UpdateView user={user} />
+                                        </Col>
+                                    </>
+                                )
+                                } </>
+                        } />
+
                     <Route
                         path="/signup"
                         element={
@@ -105,6 +122,20 @@ export function MainView() {
                                 )}
                             </>
                         } />
+                    <Route
+                        path="/users/:user"
+                        element={
+                            <>
+                                {!user ? (
+                                    <Navigate to="/login" replace />
+                                ) : (
+                                    <Col md={8}>
+                                        <UpdateView users={user} />
+                                    </Col>
+                                )}
+                            </>
+                        } />
+
                     <Route
                         path="/"
                         element={
