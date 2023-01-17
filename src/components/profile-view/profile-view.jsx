@@ -1,14 +1,16 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Card } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
+import { MovieCard } from '../movie-card/movie-card';
 
 
-export const ProfileView = () => {
+export const ProfileView = ({ movies }) => {
 
     const user = JSON.parse(localStorage.getItem("user"));
-    const moviesList = JSON.stringify(user.FavoriteMovies);
-    const date = new Date(user.Birthday).toLocaleDateString();
+    const moviesList = user.FavoriteMovies;
+    const date = user.Birthday ? new Date(user.Birthday).toLocaleDateString() : "No Birthday";
 
+    console.log(moviesList, movies);
 
     return (
         <div>
@@ -18,9 +20,12 @@ export const ProfileView = () => {
                 <p>Birthday: {date}</p>
             </Card>
 
-            <Card>
-                <p>Favorite Movies: {moviesList} </p>
-            </Card>
+            <p>Favorite Movies: {
+                movies.length && moviesList.map(movieID => {
+                    const movie = movies.find(m => m._id === movieID)
+                    if (movie) return <MovieCard movie={movie} />;
+                })}
+            </p>
 
 
 

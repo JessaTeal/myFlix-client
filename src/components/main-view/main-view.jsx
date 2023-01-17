@@ -34,6 +34,8 @@ export function MainView() {
             });
     }, [token]);
 
+    console.log("MainView", movies)
+
     return (
         <BrowserRouter>
 
@@ -56,7 +58,7 @@ export function MainView() {
                                 ) : (
                                     <>
                                         <Col className='mb-5' md={3}>
-                                            <ProfileView />
+                                            <ProfileView movies={movies} />
                                         </Col>
                                     </>
                                 )
