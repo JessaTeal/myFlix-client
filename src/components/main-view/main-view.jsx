@@ -58,7 +58,13 @@ export function MainView() {
                                 ) : (
                                     <>
                                         <Col className='mb-5' md={3}>
-                                            <ProfileView movies={movies} user={user} />
+                                            <ProfileView movies={movies} user={user}
+                                                onLoggedOut={() => {
+                                                    setUser(null);
+                                                    setToken(null);
+                                                    localStorage.clear()
+                                                }}
+                                            />
                                         </Col>
                                     </>
                                 )
