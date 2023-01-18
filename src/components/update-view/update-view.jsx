@@ -1,41 +1,54 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
+import { useParams } from 'react-router-dom';
+import { LoginView } from '../login-view/login-view';
 
 export const UpdateView = ({ user }) => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const storedToken = localStorage.getItem("token");
+    const [token, setToken] = useState(storedToken ? storedToken : null);
     const [email, setEmail] = useState("");
-    const [birthday, setBirthday] = useState("");
 
-    console.log(user)
+    if (!token) return (
+        <LoginView />
+    )
+
 
     const handleSubmit = (event) => {
         event.preventDefault();
+
+
 
         const data = {
             Username: username,
             Password: password,
             Email: email,
-            Birthday: birthday
         };
 
-        fetch("https://jessaflix.herokuapp.com/users/:user", {
+
+        fetch('https://jessaflix.herokuapp.com/users/:user', {
             method: "PUT",
-            body: JSON.stringify(data),
-            headers: {
-                "Content-Type": "application/json"
-            }
-        }).then((response) => {
-            if (response.ok) {
-                alert("Update Successful");
-                window.location.reload();
-            } else {
-                alert("Update Failed");
-            }
-        });
+            headers: { Authorization: `Bearer ${token}` },
+            body: JSON.stringify(data)
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                console.log("Login response: ", user);
+                if (data.user) {
+                    localStorage.setItem("user", JSON.stringify(data.user));
+                    localStorage.setItem("token", data.token);
+                    onLoggedIn(data.user, data.token);
+                } else {
+                    alert("No such user");
+                }
+            })
+            .catch((e) => {
+                alert("Something went wrong");
+            });
     };
 
-    console.log(user)
     return (
         <Form onSubmit={handleSubmit}>
             <Form.Group controlId='formUsername'>
@@ -43,28 +56,31 @@ export const UpdateView = ({ user }) => {
                 <Form.Control
                     type="text"
                     value={username}
-                    onChange={(e) => setUsername(e.target.value)} required
-                    minLength="3"
+                    onChange={(e) => setUsername(e.target.value)}
+                    required
                 />
             </Form.Group>
             <Form.Group controlId='formPassword'>
-                <Form.Label>New Password</Form.Label>
+                <Form.Label>New Password:</Form.Label>
                 <Form.Control
                     type="password"
                     value={password}
-                    onChange={(e) => setPassword(e.target.value)} required
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
                 />
             </Form.Group>
-            <Form.Group controlId='formEmail'>
-                <Form.Label>New Email</Form.Label>
+            <Form.Group controlId='formPassword'>
+                <Form.Label>New Email:</Form.Label>
                 <Form.Control
                     type="email"
                     value={email}
-                    onChange={(e) => setEmail(e.target.value)} required
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
                 />
             </Form.Group>
+
             <Form.Group controlId='button' className='text-center justify-content-md-center m-2'>
-                <Button type="submit">Update Information</Button>
+                <Button variant='primary' type="submit">Submit</Button>
             </Form.Group>
         </Form>
     );

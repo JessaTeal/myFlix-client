@@ -6,15 +6,12 @@ import { UpdateView } from '../update-view/update-view';
 import { Link } from 'react-router-dom';
 
 
-export const ProfileView = ({ movies, user }) => {
+export const ProfileView = ({ movies, users }) => {
 
     const currentUser = JSON.parse(localStorage.getItem("user"));
     const moviesList = currentUser.FavoriteMovies;
     const date = currentUser.Birthday ? new Date(currentUser.Birthday).toLocaleDateString() : "No Birthday";
 
-    const { userID } = useParams();
-
-    console.log(user);
 
     return (
         <div>
