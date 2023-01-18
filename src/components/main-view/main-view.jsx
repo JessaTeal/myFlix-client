@@ -43,7 +43,8 @@ export function MainView() {
                 user={(user, token)}
                 onLoggedOut={() => {
                     setUser(null);
-                    setToken(null)
+                    setToken(null);
+                    localStorage.clear()
                 }}
             />
 

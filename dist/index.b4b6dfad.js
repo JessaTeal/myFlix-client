@@ -28177,6 +28177,7 @@ function MainView() {
                 onLoggedOut: ()=>{
                     setUser(null);
                     setToken(null);
+                    localStorage.clear();
                 }
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
@@ -28208,7 +28209,7 @@ function MainView() {
                             }, void 0, true)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 52,
+                            lineNumber: 53,
                             columnNumber: 21
                         }, this),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -28231,7 +28232,7 @@ function MainView() {
                             }, void 0, true)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 67,
+                            lineNumber: 68,
                             columnNumber: 21
                         }, this),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -28246,7 +28247,7 @@ function MainView() {
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 83,
+                            lineNumber: 84,
                             columnNumber: 21
                         }, this),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -28266,7 +28267,7 @@ function MainView() {
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 96,
+                            lineNumber: 97,
                             columnNumber: 21
                         }, this),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -28286,7 +28287,7 @@ function MainView() {
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 109,
+                            lineNumber: 110,
                             columnNumber: 21
                         }, this),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -28304,7 +28305,7 @@ function MainView() {
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 124,
+                            lineNumber: 125,
                             columnNumber: 21
                         }, this),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -28327,18 +28328,18 @@ function MainView() {
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 138,
+                            lineNumber: 139,
                             columnNumber: 21
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 51,
+                    lineNumber: 52,
                     columnNumber: 17
                 }, this)
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 50,
+                lineNumber: 51,
                 columnNumber: 13
             }, this)
         ]
