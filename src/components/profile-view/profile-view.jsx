@@ -11,6 +11,18 @@ export const ProfileView = ({ movies, users }) => {
     const currentUser = JSON.parse(localStorage.getItem("user"));
     const moviesList = currentUser.FavoriteMovies;
     const date = currentUser.Birthday ? new Date(currentUser.Birthday).toLocaleDateString() : "No Birthday";
+    const token = localStorage.getItem("token");
+
+    const deleteAccount = () => {
+        if (!token) return;
+
+        fetch('https://jessaflix.herokuapp.com/users/' + currentUser.Username + '/delete', {
+            method: "DELETE",
+            headers: { Authorization: `Bearer ${token}` },
+        })
+            .then(() => console.log("Account Deleted"));
+    };
+
 
 
     return (
@@ -23,6 +35,7 @@ export const ProfileView = ({ movies, users }) => {
             <Link to={'/profile/' + (currentUser.Username)}>
                 <Button>Update</Button>
             </Link>
+            <Button onClick={deleteAccount}>Delete Account</Button>
 
             <p>Favorite Movies: {
                 movies.length && moviesList.map(movieID => {

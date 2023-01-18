@@ -129,7 +129,7 @@ export function MainView() {
                                     <Navigate to="/login" replace />
                                 ) : (
                                     <Col md={8}>
-                                        <UpdateView users={user} />
+                                        <UpdateView user={user} />
                                     </Col>
                                 )}
                             </>

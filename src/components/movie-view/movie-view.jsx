@@ -22,8 +22,25 @@ export const MovieView = ({ movies }) => {
     const addToFavorites = () => {
         if (!token) return;
 
-        fetch('https://jessaflix.herokuapp.com/users/:Username/movies/:MovieID', {
+        fetch('https://jessaflix.herokuapp.com/users/' + storedUser.Username + '/movies/' + movieID, {
             method: "POST",
+            headers: { Authorization: `Bearer ${token}` },
+        })
+            .then((response) => {
+                alert("Success");
+                return response.json(),
+                    console.log(storedUser.FavoriteMovies)
+            })
+            .catch((error) => {
+                alert("Something went wrong");
+            })
+    };
+
+    const removeFromFavorites = () => {
+        if (!token) return;
+
+        fetch('https://jessaflix.herokuapp.com/users/' + storedUser.Username + '/movies/' + movieID, {
+            method: "DELETE",
             headers: { Authorization: `Bearer ${token}` },
         })
             .then((response) => response.json())
@@ -34,6 +51,7 @@ export const MovieView = ({ movies }) => {
                 alert("Something went wrong");
             });
     };
+
 
     return (
         <div>
@@ -52,6 +70,8 @@ export const MovieView = ({ movies }) => {
                         <Button className='back-button'>Back</Button>
                     </Link>
                     <Button onClick={addToFavorites} className='favoritesButton'>Add To Favorites</Button>
+                    <Button onClick={removeFromFavorites} className='favoritesButton'>Remove From Favorites</Button>
+
 
 
                 </Col>
