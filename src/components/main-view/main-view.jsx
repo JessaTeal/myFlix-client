@@ -34,7 +34,6 @@ export function MainView() {
             });
     }, [token]);
 
-    console.log("MainView", movies)
 
     return (
         <BrowserRouter>
@@ -108,7 +107,7 @@ export function MainView() {
                             </>
                         } />
                     <Route
-                        path="/movies/:movie"
+                        path="/movies/:movieID"
                         element={
                             <>
                                 {!user ? (
@@ -148,8 +147,7 @@ export function MainView() {
                                     <>
                                         {movies.map((movie) => (
                                             <Col className='mb-5' key={movie._id} md={3}>
-                                                <MovieCard
-                                                    movie={movie}
+                                                <MovieCard movie={movie}
                                                 />
                                             </Col>
                                         ))}

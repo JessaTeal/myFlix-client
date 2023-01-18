@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Card } from 'react-bootstrap';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 import { MovieCard } from '../movie-card/movie-card';
 import { UpdateView } from '../update-view/update-view';
 import { Link } from 'react-router-dom';
@@ -20,7 +20,7 @@ export const ProfileView = ({ movies, users }) => {
                 <p>Email: {currentUser.Email}</p>
                 <p>Birthday: {date}</p>
             </Card>
-            <Link to={'/profile/:user}'}>
+            <Link to={'/profile/' + (currentUser.Username)}>
                 <Button>Update</Button>
             </Link>
 

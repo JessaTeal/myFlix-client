@@ -5,23 +5,25 @@ import Card from 'react-bootstrap/Card';
 import './movie-card.scss';
 import { Col, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 
 
 export const MovieCard = ({ movie }) => {
+
+
     return (
         <Card className='card h-100'>
 
-            <Link to={'/movies/${encodeURIComponent(movie_id)}'}>
+            <Link>
                 <Card.Img className='gridContainer' variant='top' src={movie.ImagePath} />
             </Link>
             <Card.Body className='text-center'>
                 <Card.Title> {movie.Title} </Card.Title>
                 <Card.Text> {movie.Genre.Name} </Card.Text>
-                <Link to={'/movies/${encodeURIComponent(movie_id)}'}>
+                <Link to={'/movies/' + (movie._id)}>
                     <Button>View</Button>
                 </Link>
-                <Button>Add to favorites</Button>
             </Card.Body>
         </Card>
     );

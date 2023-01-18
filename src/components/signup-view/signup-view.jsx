@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
+import { render } from 'react-dom';
+import { LoginView } from '../login-view/login-view';
 
 export const SignupView = () => {
 
@@ -28,7 +30,6 @@ export const SignupView = () => {
         }).then((response) => {
             if (response.ok) {
                 alert("Signup Successful");
-                window.location.reload();
             } else {
                 alert("Signup Failed");
             }
