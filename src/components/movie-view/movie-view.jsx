@@ -43,14 +43,13 @@ export const MovieView = ({ movies }) => {
             method: "DELETE",
             headers: { Authorization: `Bearer ${token}` },
         })
-            .then((response) => {
-                alert("Success");
-                return response.json();
-
-            })
-            .catch((error) => {
+            .then((response) => response.json())
+            .then(
+                console.log(storedUser)
+            )
+            .catch((e) => {
                 alert("Something went wrong");
-            })
+            });
     };
 
 

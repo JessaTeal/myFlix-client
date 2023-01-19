@@ -21,7 +21,6 @@ export const ProfileView = ({ movies, users }) => {
             headers: { Authorization: `Bearer ${token}` },
         })
             .then(() => console.log("Account Deleted"));
-        window.location.reload()
     };
 
 

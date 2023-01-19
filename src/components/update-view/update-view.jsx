@@ -28,7 +28,7 @@ export const UpdateView = ({ user }) => {
         };
 
 
-        fetch('https://jessaflix.herokuapp.com/users/' + user.Username, {
+        fetch('https://jessaflix.herokuapp.com/users/:user', {
             method: "PUT",
             headers: { Authorization: `Bearer ${token}` },
             body: JSON.stringify(data)
@@ -57,6 +57,7 @@ export const UpdateView = ({ user }) => {
                     type="text"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
+                    required
                 />
             </Form.Group>
             <Form.Group controlId='formPassword'>
@@ -65,6 +66,7 @@ export const UpdateView = ({ user }) => {
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
+                    required
                 />
             </Form.Group>
             <Form.Group controlId='formPassword'>
@@ -73,6 +75,7 @@ export const UpdateView = ({ user }) => {
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
+                    required
                 />
             </Form.Group>
 
