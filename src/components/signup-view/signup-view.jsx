@@ -10,6 +10,8 @@ export const SignupView = ({ onLoggedIn }) => {
     const [email, setEmail] = useState("");
     const [birthday, setBirthday] = useState("");
     const [name, setName] = useState("")
+
+
     const handleSubmit = (event) => {
         event.preventDefault();
 
@@ -28,15 +30,40 @@ export const SignupView = ({ onLoggedIn }) => {
                 "Content-Type": "application/json"
             }
 
+        }).then((response) => {
+            if (response.ok) {
+                alert("Signup Successful");
+                fetch('https://jessaflix.herokuapp.com/login', {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(data)
+                })
+                    .then((response) => response.json())
+                    .then((data) => {
+                        console.log("Login response: ", data);
+                        if (data.user) {
+                            localStorage.setItem("user", JSON.stringify(data.user));
+                            localStorage.setItem("token", data.token);
+                            onLoggedIn(data.user, data.token);
+                        } else {
+                            alert("No such user");
+                        }
+                    })
+                    .catch((e) => {
+                        alert("Something went wrong");
+                    });
+            } else {
+                alert("Signup Failed");
+            }
         })
-            .then((response) => {
-                if (response.ok) {
-                    alert("Signup Successful");
-                } else {
-                    alert("Signup Failed");
-                }
-            });
+            .then((data) => {
+                console.log(JSON.stringify(data))
+            }
+            );
     };
+
 
     return (
         <Form onSubmit={handleSubmit}>
@@ -87,4 +114,4 @@ export const SignupView = ({ onLoggedIn }) => {
             </Form.Group>
         </Form>
     );
-};
+}
