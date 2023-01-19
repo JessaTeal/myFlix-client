@@ -4,21 +4,21 @@ import { Button, Form } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import { LoginView } from '../login-view/login-view';
 
-export const UpdateView = ({ user }) => {
+export const UpdateView = (user) => {
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    const currentUser = storedUser.Username
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const storedToken = localStorage.getItem("token");
-    const [token, setToken] = useState(storedToken ? storedToken : null);
+    const token = localStorage.getItem("token");
     const [email, setEmail] = useState("");
 
-    if (!token) return (
-        <LoginView />
-    )
+    if (!token) return;
+
+    console.log(currentUser);
 
 
     const handleSubmit = (event) => {
         event.preventDefault();
-
 
 
         const data = {
@@ -28,25 +28,14 @@ export const UpdateView = ({ user }) => {
         };
 
 
-        fetch('https://jessaflix.herokuapp.com/users/:user', {
+        fetch('https://jessaflix.herokuapp.com/users/' + currentUser, {
             method: "PUT",
             headers: { Authorization: `Bearer ${token}` },
             body: JSON.stringify(data)
         })
-            .then((response) => response.json())
-            .then((data) => {
-                console.log("Login response: ", user);
-                if (data.user) {
-                    localStorage.setItem("user", JSON.stringify(data.user));
-                    localStorage.setItem("token", data.token);
-                    onLoggedIn(data.user, data.token);
-                } else {
-                    alert("No such user");
-                }
-            })
-            .catch((e) => {
-                alert("Something went wrong");
-            });
+            .then(
+                alert('update successful')
+            )
     };
 
     return (
@@ -57,7 +46,6 @@ export const UpdateView = ({ user }) => {
                     type="text"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
-                    required
                 />
             </Form.Group>
             <Form.Group controlId='formPassword'>
@@ -66,7 +54,6 @@ export const UpdateView = ({ user }) => {
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    required
                 />
             </Form.Group>
             <Form.Group controlId='formPassword'>
@@ -75,7 +62,6 @@ export const UpdateView = ({ user }) => {
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    required
                 />
             </Form.Group>
 

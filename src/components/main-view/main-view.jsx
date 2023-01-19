@@ -11,6 +11,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { Container } from 'react-bootstrap';
 import { UpdateView } from '../update-view/update-view';
+import './main-view.scss';
 
 
 export function MainView() {
@@ -57,15 +58,13 @@ export function MainView() {
                                     <Navigate to="/login" />
                                 ) : (
                                     <>
-                                        <Col className='mb-5' md={3}>
-                                            <ProfileView movies={movies} user={user}
-                                                onLoggedOut={() => {
-                                                    setUser(null);
-                                                    setToken(null);
-                                                    localStorage.clear()
-                                                }}
-                                            />
-                                        </Col>
+                                        <ProfileView movies={movies} user={user}
+                                            onLoggedOut={() => {
+                                                setUser(null);
+                                                setToken(null);
+                                                localStorage.clear()
+                                            }}
+                                        />
                                     </>
                                 )
                                 } </>
@@ -78,10 +77,6 @@ export function MainView() {
                                     <Navigate to="/login" />
                                 ) : (
                                     <>
-                                        <Col className='mb-5' md={3}>
-                                            <UpdateView user={user} />
-                                        </Col>
-
                                         <Col className='mb-5' md={3}>
                                             <ProfileView movies={movies} user={user}
                                                 onLoggedOut={() => {
@@ -163,6 +158,10 @@ export function MainView() {
                                     <Col>The list is empty!</Col>
                                 ) : (
                                     <>
+                                        <div className='text-center mb-5'>
+                                            <h1 className='welcomeBack'>Welcome Back!</h1>
+                                        </div>
+
                                         {movies.map((movie) => (
                                             <Col className='mb-5' key={movie._id} md={3}>
                                                 <MovieCard movie={movie}
