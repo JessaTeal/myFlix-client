@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import PropTypes from 'prop-types';
@@ -14,6 +14,7 @@ export const MovieView = ({ movies }) => {
     const movie = movies.find((m) => m._id === movieID);
 
     const storedUser = JSON.parse(localStorage.getItem("user"));
+    const user = useState(storedUser);
     const storedToken = localStorage.getItem("token")
     const token = storedToken;
 

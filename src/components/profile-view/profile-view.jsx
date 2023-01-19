@@ -6,12 +6,14 @@ import { UpdateView } from '../update-view/update-view';
 import { Link } from 'react-router-dom';
 
 
-export const ProfileView = ({ movies, users }) => {
+export const ProfileView = ({ movies, user, onLoggedOut }) => {
 
     const currentUser = JSON.parse(localStorage.getItem("user"));
     const moviesList = currentUser.FavoriteMovies;
     const date = currentUser.Birthday ? new Date(currentUser.Birthday).toLocaleDateString() : "No Birthday";
     const token = localStorage.getItem("token");
+
+    let favoriteMovies = movies.filter(m => currentUser.FavoriteMovies.includes(m._id));
 
     const deleteAccount = () => {
         if (!token) return;
@@ -20,8 +22,27 @@ export const ProfileView = ({ movies, users }) => {
             method: "DELETE",
             headers: { Authorization: `Bearer ${token}` },
         })
-            .then(() => console.log("Account Deleted"));
-    };
+            .then(
+                alert("account deleted")
+            )
+            .then(
+                onLoggedOut
+            )
+    }
+
+    const getFavorite = () => {
+        if (!token) return;
+
+
+        fetch('https://jessaflix.herokuapp.com/', {
+            headers: { Authorization: `Bearer ${token}` },
+        })
+            .then(
+                alert(favoriteMovies),
+            )
+    }
+
+
 
 
 
@@ -36,16 +57,6 @@ export const ProfileView = ({ movies, users }) => {
                 <Button>Update</Button>
             </Link>
             <Button onClick={deleteAccount}>Delete Account</Button>
-
-            <p>Favorite Movies: {
-                movies.length && moviesList.map(movieID => {
-                    const movie = movies.find(m => m._id === movieID)
-                    if (movie) return <MovieCard movie={movie} />;
-                })}
-            </p>
-
-
-
         </div>
     );
 }

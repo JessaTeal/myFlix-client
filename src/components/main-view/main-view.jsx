@@ -81,9 +81,21 @@ export function MainView() {
                                         <Col className='mb-5' md={3}>
                                             <UpdateView user={user} />
                                         </Col>
+
+                                        <Col className='mb-5' md={3}>
+                                            <ProfileView movies={movies} user={user}
+                                                onLoggedOut={() => {
+                                                    setUser(null);
+                                                    setToken(null);
+                                                    localStorage.clear()
+                                                }}
+                                            />
+                                        </Col>
                                     </>
+
                                 )
-                                } </>
+                                }
+                            </>
                         } />
 
                     <Route
@@ -94,7 +106,7 @@ export function MainView() {
                                     <Navigate to="/" />
                                 ) : (
                                     <Col md={5}>
-                                        <SignupView />
+                                        <SignupView onLoggedIn={(user, token) => { setUser(user); setToken(token); }} />
                                     </Col>
                                 )}
                             </>

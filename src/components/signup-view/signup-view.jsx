@@ -3,7 +3,7 @@ import { Button, Form } from 'react-bootstrap';
 import { render } from 'react-dom';
 import { LoginView } from '../login-view/login-view';
 
-export const SignupView = () => {
+export const SignupView = ({ onLoggedIn }) => {
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -27,13 +27,15 @@ export const SignupView = () => {
             headers: {
                 "Content-Type": "application/json"
             }
-        }).then((response) => {
-            if (response.ok) {
-                alert("Signup Successful");
-            } else {
-                alert("Signup Failed");
-            }
-        });
+
+        })
+            .then((response) => {
+                if (response.ok) {
+                    alert("Signup Successful");
+                } else {
+                    alert("Signup Failed");
+                }
+            });
     };
 
     return (
