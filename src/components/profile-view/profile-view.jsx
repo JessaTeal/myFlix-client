@@ -1,21 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Card } from 'react-bootstrap';
+import { Button, Card, Row } from 'react-bootstrap';
 import { useParams } from 'react-router';
 import { MovieCard } from '../movie-card/movie-card';
 import { UpdateView } from '../update-view/update-view';
 import { Link } from 'react-router-dom';
 import './profile-view.scss';
+import Col from 'react-bootstrap/Col';
 
 
 
-export const ProfileView = ({ movies, user, onLoggedOut }) => {
+export const ProfileView = ({ movies, onLoggedOut }) => {
 
     const currentUser = JSON.parse(localStorage.getItem("user"));
-    const moviesList = currentUser.FavoriteMovies;
+    const [user, setUser] = useState("");
+    const moviesList = user.FavoriteMovies;
     const date = currentUser.Birthday ? new Date(currentUser.Birthday).toLocaleDateString() : "No Birthday";
     const token = localStorage.getItem("token");
 
-    const favoriteMovies = movies.filter(m => currentUser.FavoriteMovies.includes(m._id));
 
     const deleteAccount = () => {
         if (!token) return;
@@ -32,21 +33,19 @@ export const ProfileView = ({ movies, user, onLoggedOut }) => {
             )
     }
 
-    const getFavorite = () => {
+    useEffect(() => {
         if (!token) return;
 
-        let favoriteMovies = movies.filter(m => currentUser.FavoriteMovies.includes(m._id));
-
-
-        // fetch('https://jessaflix.herokuapp.com/', {
-        //     headers: { Authorization: `Bearer ${token}` },
-        // })
-        //     .then(
-        //         alert(favoriteMovies),
-        //     )
-    }
-
-
+        fetch('https://jessaflix.herokuapp.com/users/' + currentUser.Username, {
+            method: "GET",
+            headers: { Authorization: `Bearer ${token}` },
+        })
+            .then((response) => response.json(user))
+            .then((user) => {
+                setUser(user);
+                localStorage.setItem("user", JSON.stringify(user));
+            })
+    });
 
 
 
@@ -67,8 +66,15 @@ export const ProfileView = ({ movies, user, onLoggedOut }) => {
                 <Button className='buttons' onClick={deleteAccount}>Delete Account</Button>
             </div>
             <div>
-                <h3>Favorite Movies:</h3>
-                <p></p>
+                <p>Favorite Movies:
+                    <p className='favorites'>
+                        {
+                            movies.length && moviesList.map(movieID => {
+                                const movie = movies.find(m => m._id === movieID)
+                                if (movie) return <MovieCard movie={movie} />;
+                            })}
+                    </p>
+                </p>
             </div>
         </div>
     );

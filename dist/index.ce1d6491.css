@@ -12025,6 +12025,11 @@ textarea.form-control-lg {
   margin: 10px;
 }
 
+.favorites {
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  display: grid;
+}
+
 .navigation {
   background-color: red;
   font-size: larger;

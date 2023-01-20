@@ -64,6 +64,7 @@ export function MainView() {
                                                 setToken(null);
                                                 localStorage.clear()
                                             }}
+                                            onLoggedIn={(user, token) => { setUser(user); setToken(token); }}
                                         />
                                     </>
                                 )
@@ -86,6 +87,12 @@ export function MainView() {
                                                 }}
                                             />
                                         </Col>
+                                        {movies.map((movie) => (
+                                            <Col className='mb-5' key={movie._id} md={3}>
+                                                <MovieCard movie={movie}
+                                                />
+                                            </Col>
+                                        ))}
                                     </>
 
                                 )

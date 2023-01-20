@@ -12,13 +12,16 @@ export const UpdateView = (user) => {
     const token = localStorage.getItem("token");
     const [email, setEmail] = useState("");
 
-    if (!token) return;
 
     console.log(currentUser);
 
 
     const handleSubmit = (event) => {
         event.preventDefault();
+
+        if (!token) return;
+
+        console.log(token);
 
 
         const data = {
@@ -29,14 +32,19 @@ export const UpdateView = (user) => {
 
 
         fetch('https://jessaflix.herokuapp.com/users/' + currentUser, {
-            method: "PUT",
             headers: { Authorization: `Bearer ${token}` },
+            method: "PUT",
             body: JSON.stringify(data)
         })
+            .then((response) => response.json(data))
             .then(
-                alert('update successful')
+                alert('update successful'),
             )
     };
+
+    //method: "PUT",
+    //headers: { Authorization: `Bearer ${token}` },
+    //body: JSON.stringify(data)
 
     return (
         <Form onSubmit={handleSubmit}>
