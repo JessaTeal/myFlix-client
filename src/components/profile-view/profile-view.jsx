@@ -63,7 +63,7 @@ export const ProfileView = ({ movies, onLoggedOut }) => {
                 <Button className='buttons' onClick={deleteAccount}>Delete Account</Button>
             </div>
             <div>
-                <p>Favorite Movies:</p>
+                <h3>Favorite Movies:</h3>
                 <p className='favorites'>
                     {moviesList.length === 0 ? ('Add Movies to Favorites!') :
                         movies.length && moviesList.map(movieID => {

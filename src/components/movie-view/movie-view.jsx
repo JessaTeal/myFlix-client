@@ -44,13 +44,14 @@ export const MovieView = ({ movies }) => {
             method: "DELETE",
             headers: { Authorization: `Bearer ${token}` },
         })
-            .then((response) => response.json())
-            .then(
-                console.log(storedUser)
-            )
-            .catch((e) => {
+            .then((response) => {
+                alert("Success");
+                return response.json(),
+                    console.log(storedUser.FavoriteMovies)
+            })
+            .catch((error) => {
                 alert("Something went wrong");
-            });
+            })
     };
 
 
@@ -72,9 +73,6 @@ export const MovieView = ({ movies }) => {
                     </Link>
                     <Button onClick={addToFavorites} className='favoritesButton'>Add To Favorites</Button>
                     <Button onClick={removeFromFavorites} className='favoritesButton'>Remove From Favorites</Button>
-
-
-
                 </Col>
             </Row>
         </div>

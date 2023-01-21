@@ -30,7 +30,6 @@ export const UpdateView = () => {
             Username: username,
             Password: password,
             Email: email,
-            Birthday: birthday,
         };
 
 
