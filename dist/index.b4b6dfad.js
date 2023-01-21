@@ -28321,7 +28321,11 @@ function MainView() {
                                 }, void 0, false, void 0, void 0) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
                                     md: 8,
                                     children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _updateView.UpdateView), {
-                                        user: user
+                                        user: user,
+                                        onLoggedIn: (user, token)=>{
+                                            setUser(user);
+                                            setToken(token);
+                                        }
                                     }, void 0, false, void 0, void 0)
                                 }, void 0, false, void 0, void 0)
                             }, void 0, false)
@@ -28359,7 +28363,7 @@ function MainView() {
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 158,
+                            lineNumber: 160,
                             columnNumber: 21
                         }, this)
                     ]
@@ -54014,7 +54018,7 @@ const ProfileView = ({ movies , onLoggedOut  })=>{
     _s();
     const currentUser = JSON.parse(localStorage.getItem("user"));
     const [user, setUser] = (0, _react.useState)("");
-    const moviesList = user.FavoriteMovies;
+    //const moviesList = user.FavoriteMovies;
     const date = currentUser.Birthday ? new Date(currentUser.Birthday).toLocaleDateString() : "No Birthday";
     const token = localStorage.getItem("token");
     const deleteAccount = ()=>{
@@ -54149,27 +54153,8 @@ const ProfileView = ({ movies , onLoggedOut  })=>{
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                 children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-                    children: [
-                        "Favorite Movies:",
-                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-                            className: "favorites",
-                            children: movies.length && moviesList.map((movieID)=>{
-                                const movie = movies.find((m)=>m._id === movieID);
-                                if (movie) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
-                                    movie: movie
-                                }, void 0, false, {
-                                    fileName: "src/components/profile-view/profile-view.jsx",
-                                    lineNumber: 74,
-                                    columnNumber: 51
-                                }, undefined);
-                            })
-                        }, void 0, false, {
-                            fileName: "src/components/profile-view/profile-view.jsx",
-                            lineNumber: 70,
-                            columnNumber: 21
-                        }, undefined)
-                    ]
-                }, void 0, true, {
+                    children: "Favorite Movies:"
+                }, void 0, false, {
                     fileName: "src/components/profile-view/profile-view.jsx",
                     lineNumber: 69,
                     columnNumber: 17
@@ -54215,7 +54200,7 @@ var _reactBootstrap = require("react-bootstrap");
 var _reactRouterDom = require("react-router-dom");
 var _loginView = require("../login-view/login-view");
 var _s = $RefreshSig$();
-const UpdateView = (user)=>{
+const UpdateView = ()=>{
     _s();
     const storedUser = JSON.parse(localStorage.getItem("user"));
     const currentUser = storedUser.Username;
@@ -54223,53 +54208,62 @@ const UpdateView = (user)=>{
     const [password, setPassword] = (0, _react.useState)("");
     const token = localStorage.getItem("token");
     const [email, setEmail] = (0, _react.useState)("");
+    const [birthday, setBirthday] = (0, _react.useState)("");
+    const [user, setUser] = (0, _react.useState)("");
+    if (!token) return;
     console.log(currentUser);
     const handleSubmit = (event)=>{
         event.preventDefault();
         if (!token) return;
-        console.log(token);
         const data = {
             Username: username,
             Password: password,
-            Email: email
+            Email: email,
+            Birthday: birthday
         };
         fetch("https://jessaflix.herokuapp.com/users/" + currentUser, {
             headers: {
-                Authorization: `Bearer ${token}`
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json"
             },
             method: "PUT",
             body: JSON.stringify(data)
-        }).then((response)=>response.json(data)).then(alert("update successful"));
+        }).then((response)=>response.json(data)).then(alert("update successful!")).then(fetch("https://jessaflix.herokuapp.com/users/" + data.Username, {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then((response)=>response.json(user)).then((user)=>{
+            setUser(user);
+            localStorage.setItem("user", JSON.stringify(user));
+        }));
     };
-    //method: "PUT",
-    //headers: { Authorization: `Bearer ${token}` },
-    //body: JSON.stringify(data)
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form), {
         onSubmit: handleSubmit,
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
-                controlId: "formUsername",
+                controlId: "formPassword",
                 children: [
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Label, {
-                        children: "New Username:"
+                        children: "New Email:"
                     }, void 0, false, {
                         fileName: "src/components/update-view/update-view.jsx",
-                        lineNumber: 52,
+                        lineNumber: 64,
                         columnNumber: 17
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
-                        type: "text",
-                        value: username,
-                        onChange: (e)=>setUsername(e.target.value)
+                        type: "email",
+                        value: email,
+                        onChange: (e)=>setEmail(e.target.value)
                     }, void 0, false, {
                         fileName: "src/components/update-view/update-view.jsx",
-                        lineNumber: 53,
+                        lineNumber: 65,
                         columnNumber: 17
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/update-view/update-view.jsx",
-                lineNumber: 51,
+                lineNumber: 63,
                 columnNumber: 13
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
@@ -54279,7 +54273,7 @@ const UpdateView = (user)=>{
                         children: "New Password:"
                     }, void 0, false, {
                         fileName: "src/components/update-view/update-view.jsx",
-                        lineNumber: 60,
+                        lineNumber: 72,
                         columnNumber: 17
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
@@ -54288,38 +54282,38 @@ const UpdateView = (user)=>{
                         onChange: (e)=>setPassword(e.target.value)
                     }, void 0, false, {
                         fileName: "src/components/update-view/update-view.jsx",
-                        lineNumber: 61,
+                        lineNumber: 73,
                         columnNumber: 17
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/update-view/update-view.jsx",
-                lineNumber: 59,
+                lineNumber: 71,
                 columnNumber: 13
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
-                controlId: "formPassword",
+                controlId: "formUsername",
                 children: [
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Label, {
-                        children: "New Email:"
+                        children: "New Username:"
                     }, void 0, false, {
                         fileName: "src/components/update-view/update-view.jsx",
-                        lineNumber: 68,
+                        lineNumber: 80,
                         columnNumber: 17
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
-                        type: "email",
-                        value: email,
-                        onChange: (e)=>setEmail(e.target.value)
+                        type: "text",
+                        value: username,
+                        onChange: (e)=>setUsername(e.target.value)
                     }, void 0, false, {
                         fileName: "src/components/update-view/update-view.jsx",
-                        lineNumber: 69,
+                        lineNumber: 81,
                         columnNumber: 17
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/update-view/update-view.jsx",
-                lineNumber: 67,
+                lineNumber: 79,
                 columnNumber: 13
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
@@ -54331,22 +54325,22 @@ const UpdateView = (user)=>{
                     children: "Submit"
                 }, void 0, false, {
                     fileName: "src/components/update-view/update-view.jsx",
-                    lineNumber: 77,
+                    lineNumber: 91,
                     columnNumber: 17
                 }, undefined)
             }, void 0, false, {
                 fileName: "src/components/update-view/update-view.jsx",
-                lineNumber: 76,
+                lineNumber: 90,
                 columnNumber: 13
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/components/update-view/update-view.jsx",
-        lineNumber: 50,
+        lineNumber: 62,
         columnNumber: 9
     }, undefined);
 };
-_s(UpdateView, "15GYNQRGZwIE4f5LB0Cz/BaTZf4=");
+_s(UpdateView, "EPNGP+eP37oshD4xV/TjcUdAigU=");
 _c = UpdateView;
 var _c;
 $RefreshReg$(_c, "UpdateView");

@@ -149,7 +149,9 @@ export function MainView() {
                                     <Navigate to="/login" replace />
                                 ) : (
                                     <Col md={8}>
-                                        <UpdateView user={user} />
+                                        <UpdateView user={user}
+                                            onLoggedIn={(user, token) => { setUser(user); setToken(token); }}
+                                        />
                                     </Col>
                                 )}
                             </>

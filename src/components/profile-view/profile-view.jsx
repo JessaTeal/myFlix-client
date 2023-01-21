@@ -67,13 +67,13 @@ export const ProfileView = ({ movies, onLoggedOut }) => {
             </div>
             <div>
                 <p>Favorite Movies:
-                    <p className='favorites'>
+                    {/* <p className='favorites'>
                         {
                             movies.length && moviesList.map(movieID => {
                                 const movie = movies.find(m => m._id === movieID)
                                 if (movie) return <MovieCard movie={movie} />;
                             })}
-                    </p>
+                    </p> */}
                 </p>
             </div>
         </div>

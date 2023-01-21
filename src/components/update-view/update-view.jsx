@@ -4,14 +4,19 @@ import { Button, Form } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import { LoginView } from '../login-view/login-view';
 
-export const UpdateView = (user) => {
+export const UpdateView = () => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
     const currentUser = storedUser.Username
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const token = localStorage.getItem("token");
     const [email, setEmail] = useState("");
+    const [birthday, setBirthday] = useState("");
+    const [user, setUser] = useState("");
 
+
+
+    if (!token) return;
 
     console.log(currentUser);
 
@@ -21,39 +26,46 @@ export const UpdateView = (user) => {
 
         if (!token) return;
 
-        console.log(token);
-
-
         const data = {
             Username: username,
             Password: password,
             Email: email,
+            Birthday: birthday,
         };
 
 
         fetch('https://jessaflix.herokuapp.com/users/' + currentUser, {
-            headers: { Authorization: `Bearer ${token}` },
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json"
+            },
             method: "PUT",
             body: JSON.stringify(data)
-        })
-            .then((response) => response.json(data))
+        }).then(response => response.json(data))
             .then(
-                alert('update successful'),
+                alert("update successful!"),
+            )
+            .then(
+                fetch('https://jessaflix.herokuapp.com/users/' + data.Username, {
+                    method: "GET",
+                    headers: { Authorization: `Bearer ${token}` },
+                })
+                    .then((response) => response.json(user))
+                    .then((user) => {
+                        setUser(user);
+                        localStorage.setItem("user", JSON.stringify(user));
+                    })
             )
     };
 
-    //method: "PUT",
-    //headers: { Authorization: `Bearer ${token}` },
-    //body: JSON.stringify(data)
-
     return (
         <Form onSubmit={handleSubmit}>
-            <Form.Group controlId='formUsername'>
-                <Form.Label>New Username:</Form.Label>
+            <Form.Group controlId='formPassword'>
+                <Form.Label>New Email:</Form.Label>
                 <Form.Control
-                    type="text"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                 />
             </Form.Group>
             <Form.Group controlId='formPassword'>
@@ -64,14 +76,16 @@ export const UpdateView = (user) => {
                     onChange={(e) => setPassword(e.target.value)}
                 />
             </Form.Group>
-            <Form.Group controlId='formPassword'>
-                <Form.Label>New Email:</Form.Label>
+            <Form.Group controlId='formUsername'>
+                <Form.Label>New Username:</Form.Label>
                 <Form.Control
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    type="text"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
                 />
             </Form.Group>
+
+
 
             <Form.Group controlId='button' className='text-center justify-content-md-center m-2'>
                 <Button variant='primary' type="submit">Submit</Button>
