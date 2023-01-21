@@ -17,7 +17,7 @@ export const ProfileView = ({ movies, onLoggedOut }) => {
     const token = localStorage.getItem("token");
 
 
-    //if (!token) return;
+    if (!token) return;
 
     fetch('https://jessaflix.herokuapp.com/users/' + currentUser.Username, {
         method: "GET",
@@ -29,12 +29,7 @@ export const ProfileView = ({ movies, onLoggedOut }) => {
             localStorage.setItem("user", JSON.stringify(user));
         })
 
-    const moviesListString = JSON.stringify(user.FavoriteMovies);
-    const moviesList = Array.from(moviesListString);
-
-
-
-
+    const moviesList = currentUser.FavoriteMovies
 
     const deleteAccount = () => {
         if (!token) return;
@@ -50,22 +45,6 @@ export const ProfileView = ({ movies, onLoggedOut }) => {
                 onLoggedOut
             )
     };
-    // useEffect(() => {
-
-    //     //if (!token) return;
-
-    //     fetch('https://jessaflix.herokuapp.com/users/' + currentUser.Username, {
-    //         method: "GET",
-    //         headers: { Authorization: `Bearer ${token}` },
-    //     })
-    //         .then((response) => response.json(user))
-    //         .then(user => {
-    //             setUser(user);
-    //             localStorage.setItem("user", JSON.stringify(user));
-    //         })
-    // }, []);
-
-    //let favoriteMovies = movies.filter(m => moviesList.includes(m._id))
 
     return (
         <div className='body'>
@@ -84,11 +63,9 @@ export const ProfileView = ({ movies, onLoggedOut }) => {
                 <Button className='buttons' onClick={deleteAccount}>Delete Account</Button>
             </div>
             <div>
-                <p>{moviesList}</p>
-                <p>{ }</p>
                 <p>Favorite Movies:</p>
                 <p className='favorites'>
-                    {
+                    {moviesList.length === 0 ? ('Add Movies to Favorites!') :
                         movies.length && moviesList.map(movieID => {
                             const movie = movies.find(m => m._id === movieID)
                             if (movie) return <MovieCard movie={movie} />;
