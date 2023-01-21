@@ -185,4 +185,5 @@ export function MainView() {
             </Row>
         </BrowserRouter>
     )
-}
+};
+

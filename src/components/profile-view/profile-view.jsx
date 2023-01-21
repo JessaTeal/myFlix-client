@@ -6,16 +6,34 @@ import { UpdateView } from '../update-view/update-view';
 import { Link } from 'react-router-dom';
 import './profile-view.scss';
 import Col from 'react-bootstrap/Col';
-
+import { arrayOf, element } from 'prop-types';
 
 
 export const ProfileView = ({ movies, onLoggedOut }) => {
 
     const currentUser = JSON.parse(localStorage.getItem("user"));
     const [user, setUser] = useState("");
-    const moviesList = user.FavoriteMovies;
     const date = currentUser.Birthday ? new Date(currentUser.Birthday).toLocaleDateString() : "No Birthday";
     const token = localStorage.getItem("token");
+
+
+    //if (!token) return;
+
+    fetch('https://jessaflix.herokuapp.com/users/' + currentUser.Username, {
+        method: "GET",
+        headers: { Authorization: `Bearer ${token}` },
+    })
+        .then((response) => response.json(user))
+        .then(user => {
+            setUser(user);
+            localStorage.setItem("user", JSON.stringify(user));
+        })
+
+    const moviesListString = JSON.stringify(user.FavoriteMovies);
+    const moviesList = Array.from(moviesListString);
+
+
+
 
 
     const deleteAccount = () => {
@@ -31,23 +49,23 @@ export const ProfileView = ({ movies, onLoggedOut }) => {
             .then(
                 onLoggedOut
             )
-    }
+    };
+    // useEffect(() => {
 
-    useEffect(() => {
-        if (!token) return;
+    //     //if (!token) return;
 
-        fetch('https://jessaflix.herokuapp.com/users/' + currentUser.Username, {
-            method: "GET",
-            headers: { Authorization: `Bearer ${token}` },
-        })
-            .then((response) => response.json(user))
-            .then((user) => {
-                setUser(user);
-                localStorage.setItem("user", JSON.stringify(user));
-            })
-    });
+    //     fetch('https://jessaflix.herokuapp.com/users/' + currentUser.Username, {
+    //         method: "GET",
+    //         headers: { Authorization: `Bearer ${token}` },
+    //     })
+    //         .then((response) => response.json(user))
+    //         .then(user => {
+    //             setUser(user);
+    //             localStorage.setItem("user", JSON.stringify(user));
+    //         })
+    // }, []);
 
-
+    //let favoriteMovies = movies.filter(m => moviesList.includes(m._id))
 
     return (
         <div className='body'>
@@ -66,14 +84,15 @@ export const ProfileView = ({ movies, onLoggedOut }) => {
                 <Button className='buttons' onClick={deleteAccount}>Delete Account</Button>
             </div>
             <div>
-                <p>Favorite Movies:
-                    {/* <p className='favorites'>
-                        {
-                            movies.length && moviesList.map(movieID => {
-                                const movie = movies.find(m => m._id === movieID)
-                                if (movie) return <MovieCard movie={movie} />;
-                            })}
-                    </p> */}
+                <p>{moviesList}</p>
+                <p>{ }</p>
+                <p>Favorite Movies:</p>
+                <p className='favorites'>
+                    {
+                        movies.length && moviesList.map(movieID => {
+                            const movie = movies.find(m => m._id === movieID)
+                            if (movie) return <MovieCard movie={movie} />;
+                        })}
                 </p>
             </div>
         </div>
