@@ -12,15 +12,29 @@ import axios from 'axios';
 export const MovieView = ({ movies }) => {
     const { movieID } = useParams();
     const movie = movies.find((m) => m._id === movieID);
-
     const storedUser = JSON.parse(localStorage.getItem("user"));
-    const user = useState(storedUser);
+    const [user, setUser] = useState("");
     const storedToken = localStorage.getItem("token")
     const token = storedToken;
+
+    if (!token) return;
+
+    fetch('https://jessaflix.herokuapp.com/users/' + storedUser.Username, {
+        method: "GET",
+        headers: { Authorization: `Bearer ${token}` },
+    })
+        .then((response) => response.json(user))
+        .then(user => {
+            setUser(user);
+            localStorage.setItem("user", JSON.stringify(user));
+        })
+
+    const moviesList = storedUser.FavoriteMovies
 
 
 
     const addToFavorites = () => {
+
         if (!token) return;
 
         fetch('https://jessaflix.herokuapp.com/users/' + storedUser.Username + '/movies/' + movieID, {
@@ -32,12 +46,16 @@ export const MovieView = ({ movies }) => {
                 return response.json(),
                     console.log(storedUser.FavoriteMovies)
             })
+            .then(
+                document.getElementById('favoritesButton').innerHTML = "Remove from Favorites"
+            )
             .catch((error) => {
                 alert("Something went wrong");
             })
     };
 
     const removeFromFavorites = () => {
+
         if (!token) return;
 
         fetch('https://jessaflix.herokuapp.com/users/' + storedUser.Username + '/movies/' + movieID, {
@@ -49,6 +67,9 @@ export const MovieView = ({ movies }) => {
                 return response.json(),
                     console.log(storedUser.FavoriteMovies)
             })
+            .then(
+                document.getElementById('favoritesButton').innerHTML = "Add to Favorites"
+            )
             .catch((error) => {
                 alert("Something went wrong");
             })
@@ -71,9 +92,26 @@ export const MovieView = ({ movies }) => {
                     <Link to={'/'}>
                         <Button className='back-button'>Back</Button>
                     </Link>
-                    <Button onClick={addToFavorites} className='favoritesButton'>Add To Favorites</Button>
-                    <Button onClick={removeFromFavorites} className='favoritesButton'>Remove From Favorites</Button>
+                    <Button
+                        onClick={
+                            ((moviesList.includes(movieID)) ?
+                                (removeFromFavorites)
+                                :
+                                (addToFavorites))}
+                        className='favoritesButton'
+                        id='favoritesButton'>
+                        {
+                            ((moviesList.includes(movieID)) ?
+                                ("Remove from Favorites")
+                                :
+                                ("Add to Favorites"))}
+                    </Button>
                 </Col>
+                <div>
+                    <p>
+
+                    </p>
+                </div>
             </Row>
         </div>
     );

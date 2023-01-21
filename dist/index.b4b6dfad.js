@@ -45921,9 +45921,20 @@ const MovieView = ({ movies  })=>{
     const { movieID  } = (0, _reactRouter.useParams)();
     const movie = movies.find((m)=>m._id === movieID);
     const storedUser = JSON.parse(localStorage.getItem("user"));
-    const user = (0, _react.useState)(storedUser);
+    const [user, setUser] = (0, _react.useState)("");
     const storedToken = localStorage.getItem("token");
     const token = storedToken;
+    if (!token) return;
+    fetch("https://jessaflix.herokuapp.com/users/" + storedUser.Username, {
+        method: "GET",
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    }).then((response)=>response.json(user)).then((user)=>{
+        setUser(user);
+        localStorage.setItem("user", JSON.stringify(user));
+    });
+    const moviesList = storedUser.FavoriteMovies;
     const addToFavorites = ()=>{
         if (!token) return;
         fetch("https://jessaflix.herokuapp.com/users/" + storedUser.Username + "/movies/" + movieID, {
@@ -45934,7 +45945,7 @@ const MovieView = ({ movies  })=>{
         }).then((response)=>{
             alert("Success");
             return response.json(), console.log(storedUser.FavoriteMovies);
-        }).catch((error)=>{
+        }).then(document.getElementById("favoritesButton").innerHTML = "Remove from Favorites").catch((error)=>{
             alert("Something went wrong");
         });
     };
@@ -45948,7 +45959,7 @@ const MovieView = ({ movies  })=>{
         }).then((response)=>{
             alert("Success");
             return response.json(), console.log(storedUser.FavoriteMovies);
-        }).catch((error)=>{
+        }).then(document.getElementById("favoritesButton").innerHTML = "Add to Favorites").catch((error)=>{
             alert("Something went wrong");
         });
     };
@@ -45963,12 +45974,12 @@ const MovieView = ({ movies  })=>{
                         src: movie.ImagePath
                     }, void 0, false, {
                         fileName: "src/components/movie-view/movie-view.jsx",
-                        lineNumber: 62,
+                        lineNumber: 83,
                         columnNumber: 21
                     }, undefined)
                 }, void 0, false, {
                     fileName: "src/components/movie-view/movie-view.jsx",
-                    lineNumber: 61,
+                    lineNumber: 82,
                     columnNumber: 17
                 }, undefined),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
@@ -45979,7 +45990,7 @@ const MovieView = ({ movies  })=>{
                             children: movie.Title
                         }, void 0, false, {
                             fileName: "src/components/movie-view/movie-view.jsx",
-                            lineNumber: 66,
+                            lineNumber: 87,
                             columnNumber: 21
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
@@ -45991,7 +46002,7 @@ const MovieView = ({ movies  })=>{
                             ]
                         }, void 0, true, {
                             fileName: "src/components/movie-view/movie-view.jsx",
-                            lineNumber: 67,
+                            lineNumber: 88,
                             columnNumber: 21
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
@@ -46003,7 +46014,7 @@ const MovieView = ({ movies  })=>{
                             ]
                         }, void 0, true, {
                             fileName: "src/components/movie-view/movie-view.jsx",
-                            lineNumber: 69,
+                            lineNumber: 90,
                             columnNumber: 21
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
@@ -46011,7 +46022,7 @@ const MovieView = ({ movies  })=>{
                             children: movie.Description
                         }, void 0, false, {
                             fileName: "src/components/movie-view/movie-view.jsx",
-                            lineNumber: 70,
+                            lineNumber: 91,
                             columnNumber: 21
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Link), {
@@ -46021,51 +46032,54 @@ const MovieView = ({ movies  })=>{
                                 children: "Back"
                             }, void 0, false, {
                                 fileName: "src/components/movie-view/movie-view.jsx",
-                                lineNumber: 72,
+                                lineNumber: 93,
                                 columnNumber: 25
                             }, undefined)
                         }, void 0, false, {
                             fileName: "src/components/movie-view/movie-view.jsx",
-                            lineNumber: 71,
+                            lineNumber: 92,
                             columnNumber: 21
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
-                            onClick: addToFavorites,
+                            onClick: moviesList.includes(movieID) ? removeFromFavorites : addToFavorites,
                             className: "favoritesButton",
-                            children: "Add To Favorites"
+                            id: "favoritesButton",
+                            children: moviesList.includes(movieID) ? "Remove from Favorites" : "Add to Favorites"
                         }, void 0, false, {
                             fileName: "src/components/movie-view/movie-view.jsx",
-                            lineNumber: 74,
-                            columnNumber: 21
-                        }, undefined),
-                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
-                            onClick: removeFromFavorites,
-                            className: "favoritesButton",
-                            children: "Remove From Favorites"
-                        }, void 0, false, {
-                            fileName: "src/components/movie-view/movie-view.jsx",
-                            lineNumber: 75,
+                            lineNumber: 95,
                             columnNumber: 21
                         }, undefined)
                     ]
                 }, void 0, true, {
                     fileName: "src/components/movie-view/movie-view.jsx",
-                    lineNumber: 65,
+                    lineNumber: 86,
+                    columnNumber: 17
+                }, undefined),
+                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {}, void 0, false, {
+                        fileName: "src/components/movie-view/movie-view.jsx",
+                        lineNumber: 111,
+                        columnNumber: 21
+                    }, undefined)
+                }, void 0, false, {
+                    fileName: "src/components/movie-view/movie-view.jsx",
+                    lineNumber: 110,
                     columnNumber: 17
                 }, undefined)
             ]
         }, void 0, true, {
             fileName: "src/components/movie-view/movie-view.jsx",
-            lineNumber: 60,
+            lineNumber: 81,
             columnNumber: 13
         }, undefined)
     }, void 0, false, {
         fileName: "src/components/movie-view/movie-view.jsx",
-        lineNumber: 59,
+        lineNumber: 80,
         columnNumber: 9
     }, undefined);
 };
-_s(MovieView, "Xvs13fOGhgQO78tTzwUt7PgMoGg=", false, function() {
+_s(MovieView, "moROied+MTigb1iznbh27AeltrQ=", false, function() {
     return [
         (0, _reactRouter.useParams)
     ];
@@ -54202,7 +54216,7 @@ $RefreshReg$(_c, "ProfileView");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-bootstrap":"3AD9A","react-router":"dbWyW","../movie-card/movie-card":"bwuIu","../update-view/update-view":"kEeMk","react-router-dom":"9xmpe","./profile-view.scss":"eyKYH","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","react-bootstrap/Col":"2L2I6","prop-types":"7wKI2"}],"kEeMk":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-bootstrap":"3AD9A","react-router":"dbWyW","../movie-card/movie-card":"bwuIu","../update-view/update-view":"kEeMk","react-router-dom":"9xmpe","./profile-view.scss":"eyKYH","react-bootstrap/Col":"2L2I6","prop-types":"7wKI2","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"kEeMk":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$d7d4 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
