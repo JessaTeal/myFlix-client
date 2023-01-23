@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Button, Form } from 'react-bootstrap';
+import { Button, Form, Card } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import { LoginView } from '../login-view/login-view';
 
@@ -27,9 +27,9 @@ export const UpdateView = () => {
         if (!token) return;
 
         const data = {
-            Username: username,
-            Password: password,
-            Email: email,
+            Username: (username ? username : storedUser.Username),
+            Password: (password ? username : storedUser.Password),
+            Email: (email ? email : storedUser.Email),
         };
 
 
@@ -58,37 +58,44 @@ export const UpdateView = () => {
     };
 
     return (
-        <Form onSubmit={handleSubmit}>
-            <Form.Group controlId='formPassword'>
-                <Form.Label>New Email:</Form.Label>
-                <Form.Control
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                />
-            </Form.Group>
-            <Form.Group controlId='formPassword'>
-                <Form.Label>New Password:</Form.Label>
-                <Form.Control
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                />
-            </Form.Group>
-            <Form.Group controlId='formUsername'>
-                <Form.Label>New Username:</Form.Label>
-                <Form.Control
-                    type="text"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                />
-            </Form.Group>
+        <div>
+            <Card className='card'>
+                <h1 className='text-center justify-content-md-center m-5'>Something changed?</h1>
+                <Form className='justify-content-md-center m-2' onSubmit={handleSubmit}>
+                    <Form.Group controlId='formUsername'>
+                        <Form.Label className='label'>New Username:</Form.Label>
+                        <Form.Control
+                            className='typeSpace'
+                            type="text"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                        />
+                    </Form.Group>
 
+                    <Form.Group controlId='formPassword'>
+                        <Form.Label className='label'>New Password:</Form.Label>
+                        <Form.Control
+                            className='typeSpace'
+                            type="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+                    </Form.Group>
 
-
-            <Form.Group controlId='button' className='text-center justify-content-md-center m-2'>
-                <Button variant='primary' type="submit">Submit</Button>
-            </Form.Group>
-        </Form>
+                    <Form.Group controlId='formEmail'>
+                        <Form.Label className='label'>New Email:</Form.Label>
+                        <Form.Control
+                            className='typeSpace'
+                            type="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
+                    </Form.Group>
+                    <Form.Group controlId='button' className='text-center justify-content-md-center m-2'>
+                        <Button className='button' variant='primary' type="submit">Submit</Button>
+                    </Form.Group>
+                </Form>
+            </Card>
+        </div>
     );
 };

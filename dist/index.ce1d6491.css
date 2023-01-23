@@ -12012,7 +12012,7 @@ textarea.form-control-lg {
 }
 
 .welcomeBack {
-  color: red;
+  color: teal;
   text-decoration: bold;
   font-weight: bolder;
 }
@@ -12099,6 +12099,16 @@ textarea.form-control-lg {
   justify-content: center;
   align-items: center;
   display: flex;
+}
+
+.movieInfoView {
+  background-color: teal;
+  margin: auto;
+}
+
+.movieInfo {
+  height: 150px;
+  background-color: teal;
 }
 
 .movieCard {

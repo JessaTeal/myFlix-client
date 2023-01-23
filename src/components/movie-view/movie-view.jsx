@@ -6,7 +6,7 @@ import './movie-view.scss';
 import Navigation from '../../navbar';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
-import { Button } from 'react-bootstrap';
+import { Button, Card } from 'react-bootstrap';
 import axios from 'axios';
 
 export const MovieView = ({ movies }) => {
@@ -42,7 +42,7 @@ export const MovieView = ({ movies }) => {
             headers: { Authorization: `Bearer ${token}` },
         })
             .then((response) => {
-                alert("Success");
+                alert("Movie has been added to favorites");
                 return response.json(),
                     console.log(storedUser.FavoriteMovies)
             })
@@ -63,7 +63,7 @@ export const MovieView = ({ movies }) => {
             headers: { Authorization: `Bearer ${token}` },
         })
             .then((response) => {
-                alert("Success");
+                alert("Movie has been removed from favorites");
                 return response.json(),
                     console.log(storedUser.FavoriteMovies)
             })
@@ -82,13 +82,12 @@ export const MovieView = ({ movies }) => {
                 <Col>
                     <img className='image' crossOrigin={"anonymous"} src={movie.ImagePath} />
                 </Col>
+                <Col className="text-center movieInfoView">
+                    <span className="movie-title rightColumn mb-3">{movie.Title}</span>
+                    <span className="rightColumn mb-3">Director: {movie.Director.Name} </span>
 
-                <Col className="text-center">
-                    <span className="movie-title rightColumn">{movie.Title}</span>
-                    <span className="rightColumn">Director: {movie.Director.Name} </span>
-
-                    <span className="rightColumn">Genre: {movie.Genre.Name} </span>
-                    <span className="rightColumn">{movie.Description}</span>
+                    <span className="rightColumn mb-3">Genre: {movie.Genre.Name} </span>
+                    <span className="rightColumn mb-3">{movie.Description}</span>
                     <Link to={'/'}>
                         <Button className='back-button'>Back</Button>
                     </Link>
@@ -98,7 +97,7 @@ export const MovieView = ({ movies }) => {
                                 (removeFromFavorites)
                                 :
                                 (addToFavorites))}
-                        className='favoritesButton'
+                        className='favoritesButton m-3'
                         id='favoritesButton'>
                         {
                             ((moviesList.includes(movieID)) ?
@@ -107,11 +106,6 @@ export const MovieView = ({ movies }) => {
                                 ("Add to Favorites"))}
                     </Button>
                 </Col>
-                <div>
-                    <p>
-
-                    </p>
-                </div>
             </Row>
         </div>
     );

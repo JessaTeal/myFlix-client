@@ -45881,7 +45881,7 @@ const MovieCard = ({ movie  })=>{
                         columnNumber: 21
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _cardDefault.default).Body, {
-                        className: "text-center",
+                        className: "movieInfo text-center",
                         children: [
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _cardDefault.default).Title, {
                                 children: [
@@ -45897,6 +45897,7 @@ const MovieCard = ({ movie  })=>{
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Link), {
                                 to: "/movies/" + movie._id,
                                 children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _buttonDefault.default), {
+                                    className: "cardButton",
                                     children: "View"
                                 }, void 0, false, {
                                     fileName: "src/components/movie-card/movie-card.jsx",
@@ -46010,7 +46011,7 @@ const MovieView = ({ movies  })=>{
                 Authorization: `Bearer ${token}`
             }
         }).then((response)=>{
-            alert("Success");
+            alert("Movie has been added to favorites");
             return response.json(), console.log(storedUser.FavoriteMovies);
         }).then(document.getElementById("favoritesButton").innerHTML = "Remove from Favorites").catch((error)=>{
             alert("Something went wrong");
@@ -46024,7 +46025,7 @@ const MovieView = ({ movies  })=>{
                 Authorization: `Bearer ${token}`
             }
         }).then((response)=>{
-            alert("Success");
+            alert("Movie has been removed from favorites");
             return response.json(), console.log(storedUser.FavoriteMovies);
         }).then(document.getElementById("favoritesButton").innerHTML = "Add to Favorites").catch((error)=>{
             alert("Something went wrong");
@@ -46050,18 +46051,18 @@ const MovieView = ({ movies  })=>{
                     columnNumber: 17
                 }, undefined),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
-                    className: "text-center",
+                    className: "text-center movieInfoView",
                     children: [
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
-                            className: "movie-title rightColumn",
+                            className: "movie-title rightColumn mb-3",
                             children: movie.Title
                         }, void 0, false, {
                             fileName: "src/components/movie-view/movie-view.jsx",
-                            lineNumber: 87,
+                            lineNumber: 86,
                             columnNumber: 21
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
-                            className: "rightColumn",
+                            className: "rightColumn mb-3",
                             children: [
                                 "Director: ",
                                 movie.Director.Name,
@@ -46069,11 +46070,11 @@ const MovieView = ({ movies  })=>{
                             ]
                         }, void 0, true, {
                             fileName: "src/components/movie-view/movie-view.jsx",
-                            lineNumber: 88,
+                            lineNumber: 87,
                             columnNumber: 21
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
-                            className: "rightColumn",
+                            className: "rightColumn mb-3",
                             children: [
                                 "Genre: ",
                                 movie.Genre.Name,
@@ -46081,15 +46082,15 @@ const MovieView = ({ movies  })=>{
                             ]
                         }, void 0, true, {
                             fileName: "src/components/movie-view/movie-view.jsx",
-                            lineNumber: 90,
+                            lineNumber: 89,
                             columnNumber: 21
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
-                            className: "rightColumn",
+                            className: "rightColumn mb-3",
                             children: movie.Description
                         }, void 0, false, {
                             fileName: "src/components/movie-view/movie-view.jsx",
-                            lineNumber: 91,
+                            lineNumber: 90,
                             columnNumber: 21
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Link), {
@@ -46099,39 +46100,28 @@ const MovieView = ({ movies  })=>{
                                 children: "Back"
                             }, void 0, false, {
                                 fileName: "src/components/movie-view/movie-view.jsx",
-                                lineNumber: 93,
+                                lineNumber: 92,
                                 columnNumber: 25
                             }, undefined)
                         }, void 0, false, {
                             fileName: "src/components/movie-view/movie-view.jsx",
-                            lineNumber: 92,
+                            lineNumber: 91,
                             columnNumber: 21
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
                             onClick: moviesList.includes(movieID) ? removeFromFavorites : addToFavorites,
-                            className: "favoritesButton",
+                            className: "favoritesButton m-3",
                             id: "favoritesButton",
                             children: moviesList.includes(movieID) ? "Remove from Favorites" : "Add to Favorites"
                         }, void 0, false, {
                             fileName: "src/components/movie-view/movie-view.jsx",
-                            lineNumber: 95,
+                            lineNumber: 94,
                             columnNumber: 21
                         }, undefined)
                     ]
                 }, void 0, true, {
                     fileName: "src/components/movie-view/movie-view.jsx",
-                    lineNumber: 86,
-                    columnNumber: 17
-                }, undefined),
-                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {}, void 0, false, {
-                        fileName: "src/components/movie-view/movie-view.jsx",
-                        lineNumber: 111,
-                        columnNumber: 21
-                    }, undefined)
-                }, void 0, false, {
-                    fileName: "src/components/movie-view/movie-view.jsx",
-                    lineNumber: 110,
+                    lineNumber: 85,
                     columnNumber: 17
                 }, undefined)
             ]
@@ -54324,9 +54314,9 @@ const UpdateView = ()=>{
         event.preventDefault();
         if (!token) return;
         const data = {
-            Username: username,
-            Password: password,
-            Email: email
+            Username: username ? username : storedUser.Username,
+            Password: password ? username : storedUser.Password,
+            Email: email ? email : storedUser.Email
         };
         fetch("https://jessaflix.herokuapp.com/users/" + currentUser, {
             headers: {
@@ -54345,103 +54335,134 @@ const UpdateView = ()=>{
             localStorage.setItem("user", JSON.stringify(user));
         }));
     };
-    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form), {
-        onSubmit: handleSubmit,
-        children: [
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
-                controlId: "formPassword",
-                children: [
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Label, {
-                        children: "New Email:"
-                    }, void 0, false, {
-                        fileName: "src/components/update-view/update-view.jsx",
-                        lineNumber: 63,
-                        columnNumber: 17
-                    }, undefined),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
-                        type: "email",
-                        value: email,
-                        onChange: (e)=>setEmail(e.target.value)
-                    }, void 0, false, {
-                        fileName: "src/components/update-view/update-view.jsx",
-                        lineNumber: 64,
-                        columnNumber: 17
-                    }, undefined)
-                ]
-            }, void 0, true, {
-                fileName: "src/components/update-view/update-view.jsx",
-                lineNumber: 62,
-                columnNumber: 13
-            }, undefined),
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
-                controlId: "formPassword",
-                children: [
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Label, {
-                        children: "New Password:"
-                    }, void 0, false, {
-                        fileName: "src/components/update-view/update-view.jsx",
-                        lineNumber: 71,
-                        columnNumber: 17
-                    }, undefined),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
-                        type: "password",
-                        value: password,
-                        onChange: (e)=>setPassword(e.target.value)
-                    }, void 0, false, {
-                        fileName: "src/components/update-view/update-view.jsx",
-                        lineNumber: 72,
-                        columnNumber: 17
-                    }, undefined)
-                ]
-            }, void 0, true, {
-                fileName: "src/components/update-view/update-view.jsx",
-                lineNumber: 70,
-                columnNumber: 13
-            }, undefined),
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
-                controlId: "formUsername",
-                children: [
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Label, {
-                        children: "New Username:"
-                    }, void 0, false, {
-                        fileName: "src/components/update-view/update-view.jsx",
-                        lineNumber: 79,
-                        columnNumber: 17
-                    }, undefined),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
-                        type: "text",
-                        value: username,
-                        onChange: (e)=>setUsername(e.target.value)
-                    }, void 0, false, {
-                        fileName: "src/components/update-view/update-view.jsx",
-                        lineNumber: 80,
-                        columnNumber: 17
-                    }, undefined)
-                ]
-            }, void 0, true, {
-                fileName: "src/components/update-view/update-view.jsx",
-                lineNumber: 78,
-                columnNumber: 13
-            }, undefined),
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
-                controlId: "button",
-                className: "text-center justify-content-md-center m-2",
-                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
-                    variant: "primary",
-                    type: "submit",
-                    children: "Submit"
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card), {
+            className: "card",
+            children: [
+                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h1", {
+                    className: "text-center justify-content-md-center m-5",
+                    children: "Something changed?"
                 }, void 0, false, {
                     fileName: "src/components/update-view/update-view.jsx",
-                    lineNumber: 90,
+                    lineNumber: 63,
+                    columnNumber: 17
+                }, undefined),
+                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form), {
+                    className: "justify-content-md-center m-2",
+                    onSubmit: handleSubmit,
+                    children: [
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
+                            controlId: "formUsername",
+                            children: [
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Label, {
+                                    className: "label",
+                                    children: "New Username:"
+                                }, void 0, false, {
+                                    fileName: "src/components/update-view/update-view.jsx",
+                                    lineNumber: 66,
+                                    columnNumber: 25
+                                }, undefined),
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
+                                    className: "typeSpace",
+                                    type: "text",
+                                    value: username,
+                                    onChange: (e)=>setUsername(e.target.value)
+                                }, void 0, false, {
+                                    fileName: "src/components/update-view/update-view.jsx",
+                                    lineNumber: 67,
+                                    columnNumber: 25
+                                }, undefined)
+                            ]
+                        }, void 0, true, {
+                            fileName: "src/components/update-view/update-view.jsx",
+                            lineNumber: 65,
+                            columnNumber: 21
+                        }, undefined),
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
+                            controlId: "formPassword",
+                            children: [
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Label, {
+                                    className: "label",
+                                    children: "New Password:"
+                                }, void 0, false, {
+                                    fileName: "src/components/update-view/update-view.jsx",
+                                    lineNumber: 76,
+                                    columnNumber: 25
+                                }, undefined),
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
+                                    className: "typeSpace",
+                                    type: "password",
+                                    value: password,
+                                    onChange: (e)=>setPassword(e.target.value)
+                                }, void 0, false, {
+                                    fileName: "src/components/update-view/update-view.jsx",
+                                    lineNumber: 77,
+                                    columnNumber: 25
+                                }, undefined)
+                            ]
+                        }, void 0, true, {
+                            fileName: "src/components/update-view/update-view.jsx",
+                            lineNumber: 75,
+                            columnNumber: 21
+                        }, undefined),
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
+                            controlId: "formEmail",
+                            children: [
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Label, {
+                                    className: "label",
+                                    children: "New Email:"
+                                }, void 0, false, {
+                                    fileName: "src/components/update-view/update-view.jsx",
+                                    lineNumber: 86,
+                                    columnNumber: 25
+                                }, undefined),
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
+                                    className: "typeSpace",
+                                    type: "email",
+                                    value: email,
+                                    onChange: (e)=>setEmail(e.target.value)
+                                }, void 0, false, {
+                                    fileName: "src/components/update-view/update-view.jsx",
+                                    lineNumber: 87,
+                                    columnNumber: 25
+                                }, undefined)
+                            ]
+                        }, void 0, true, {
+                            fileName: "src/components/update-view/update-view.jsx",
+                            lineNumber: 85,
+                            columnNumber: 21
+                        }, undefined),
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
+                            controlId: "button",
+                            className: "text-center justify-content-md-center m-2",
+                            children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
+                                className: "button",
+                                variant: "primary",
+                                type: "submit",
+                                children: "Submit"
+                            }, void 0, false, {
+                                fileName: "src/components/update-view/update-view.jsx",
+                                lineNumber: 95,
+                                columnNumber: 25
+                            }, undefined)
+                        }, void 0, false, {
+                            fileName: "src/components/update-view/update-view.jsx",
+                            lineNumber: 94,
+                            columnNumber: 21
+                        }, undefined)
+                    ]
+                }, void 0, true, {
+                    fileName: "src/components/update-view/update-view.jsx",
+                    lineNumber: 64,
                     columnNumber: 17
                 }, undefined)
-            }, void 0, false, {
-                fileName: "src/components/update-view/update-view.jsx",
-                lineNumber: 89,
-                columnNumber: 13
-            }, undefined)
-        ]
-    }, void 0, true, {
+            ]
+        }, void 0, true, {
+            fileName: "src/components/update-view/update-view.jsx",
+            lineNumber: 62,
+            columnNumber: 13
+        }, undefined)
+    }, void 0, false, {
         fileName: "src/components/update-view/update-view.jsx",
         lineNumber: 61,
         columnNumber: 9

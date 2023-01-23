@@ -20,10 +20,10 @@ export const MovieCard = ({ movie }) => {
                     <Link to={'/movies/' + (movie._id)}>
                         <Card.Img className='gridContainer' variant='top' src={movie.ImagePath} />
                     </Link>
-                    <Card.Body className='text-center'>
+                    <Card.Body className='movieInfo text-center'>
                         <Card.Title> {movie.Title} </Card.Title>
                         <Link to={'/movies/' + (movie._id)}>
-                            <Button>View</Button>
+                            <Button className='cardButton'>View</Button>
                         </Link>
                     </Card.Body>
                 </Card>
