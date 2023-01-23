@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { render } from 'react-dom';
 import { LoginView } from '../login-view/login-view';
+import './signup-view.scss';
+
 
 export const SignupView = ({ onLoggedIn }) => {
 
@@ -66,7 +68,7 @@ export const SignupView = ({ onLoggedIn }) => {
 
 
     return (
-        <Form onSubmit={handleSubmit}>
+        <Form className='form' onSubmit={handleSubmit}>
             <Form.Group controlId='formUsername'>
                 <Form.Label>Name:</Form.Label>
                 <Form.Control

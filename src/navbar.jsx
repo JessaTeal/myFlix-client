@@ -15,9 +15,9 @@ export const Navigation = ({ user, onLoggedOut }) => {
 
 
   return (
-    <Container className="navigation mb-5">
-      <Navbar className="navigation" expand="lg">
-        <Navbar.Brand as={Link} to="/">
+    <Container className="container">
+      <Navbar className="navigation mb-5" expand="lg">
+        <Navbar.Brand className='navbarBrand' as={Link} to="/">
           jessaFlix
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -49,6 +49,7 @@ export const Navigation = ({ user, onLoggedOut }) => {
           </Nav>
         </Navbar.Collapse>
       </Navbar>
+
     </Container>
 
   );
