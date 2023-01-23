@@ -25,23 +25,23 @@ export const Navigation = ({ user, onLoggedOut }) => {
           <Nav className='nav'>
             {!user && (
               <>
-                <Nav.Link as={Link} to="/login">
+                <Nav.Link className='link' as={Link} to="/login">
                   Login
                 </Nav.Link>
-                <Nav.Link as={Link} to="/signup">
+                <Nav.Link className='link' as={Link} to="/signup">
                   Signup
                 </Nav.Link>
               </>
             )}
             {user && (
               <>
-                <Nav.Link as={Link} to="/">
+                <Nav.Link className='link' as={Link} to="/">
                   Home
                 </Nav.Link>
-                <Nav.Link as={Link} to="/profile">
+                <Nav.Link className='link' as={Link} to="/profile">
                   Profile
                 </Nav.Link>
-                <Nav.Link onClick={onLoggedOut}>
+                <Nav.Link className='link' onClick={onLoggedOut}>
                   Logout
                 </Nav.Link>
               </>

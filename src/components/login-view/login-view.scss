@@ -1,0 +1,46 @@
+.card {
+    background-color: darkgrey;
+    border-color: teal;
+    border-width: thick;
+}
+
+.logincard {
+    height: 400px;
+}
+
+.typeSpace {
+    outline: solid;
+    outline-color: teal;
+}
+
+.label,
+.button {
+    font-size: larger;
+    font-weight: bolder;
+}
+
+.button {
+    background-color: teal;
+    color: lightgrey;
+    border-color: teal;
+    border-width: thick;
+    border-radius: 30%;
+
+
+}
+
+.register {
+    background-color: teal;
+    padding: 5px;
+    width: 75%;
+    margin: auto;
+    border-radius: 10;
+}
+
+.registerButton {
+    background-color: lightgrey;
+    color: teal;
+    border-color: teal;
+    border-width: thick;
+    border-radius: 30%;
+}

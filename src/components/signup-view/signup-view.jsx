@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Form } from 'react-bootstrap';
+import { Button, Form, Card } from 'react-bootstrap';
 import { render } from 'react-dom';
 import { LoginView } from '../login-view/login-view';
 import './signup-view.scss';
@@ -68,52 +68,67 @@ export const SignupView = ({ onLoggedIn }) => {
 
 
     return (
-        <Form className='form' onSubmit={handleSubmit}>
-            <Form.Group controlId='formUsername'>
-                <Form.Label>Name:</Form.Label>
-                <Form.Control
-                    type="text"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)} required
-                    minLength="3"
-                />
+        <div>
+            <Card className='card'>
+                <h1 className='text-center justify-content-md-center m-4'>Register Today!</h1>
+                <Form className='form justify-content-md-center m-2' onSubmit={handleSubmit}>
+                    <Form.Group controlId='formUsername'>
+                        <Form.Label className='label'>Name:</Form.Label>
+                        <Form.Control
+                            className='typeSpace'
+                            type="text"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)} required
+                            minLength="3"
+                        />
+                    </Form.Group>
+                    <Form.Group controlId='formUsername'>
+                        <Form.Label className='label'>Username:</Form.Label>
+                        <Form.Control
+                            className='typeSpace'
+                            type="text"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)} required
+                            minLength="3"
+                        />
+                    </Form.Group>
+                    <Form.Group controlId='formPassword'>
+                        <Form.Label className='label'>Password</Form.Label>
+                        <Form.Control
+                            className='typeSpace'
+                            type="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)} required
+                        />
+                    </Form.Group>
+                    <Form.Group controlId='formEmail'>
+                        <Form.Label className='label'>Email</Form.Label>
+                        <Form.Control
+                            className='typeSpace'
+                            type="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)} required
+                        />
+                    </Form.Group>
+                    <Form.Group controlId='formBirthday'>
+                        <Form.Label className='label'>Birthday</Form.Label>
+                        <Form.Control
+                            className='typeSpace'
+                            type="date"
+                            value={birthday}
+                            onChange={(e) => setBirthday(e.target.value)} required
+                        />
+                    </Form.Group>
+                    <Form.Group controlId='button' className='text-center justify-content-md-center m-2'>
+                        <Button className='button' type="submit">Register</Button>
+                    </Form.Group>
+                </Form>
+            </Card>
+            <h3 className='text-center justify-content-md-center m-2'>Already a member?</h3>
+            <h5 className='text-center justify-content-md-center m-2'>Login!</h5>
+            <Form.Group controlId='button' className='text-center justify-content-md-center'>
+                <Button href="/login" className='button registerButton mb-5' variant='primary' type="submit">Login</Button>
             </Form.Group>
-            <Form.Group controlId='formUsername'>
-                <Form.Label>Username:</Form.Label>
-                <Form.Control
-                    type="text"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)} required
-                    minLength="3"
-                />
-            </Form.Group>
-            <Form.Group controlId='formPassword'>
-                <Form.Label>Password</Form.Label>
-                <Form.Control
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)} required
-                />
-            </Form.Group>
-            <Form.Group controlId='formEmail'>
-                <Form.Label>Email</Form.Label>
-                <Form.Control
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)} required
-                />
-            </Form.Group>
-            <Form.Group controlId='formBirthday'>
-                <Form.Label>Birthday</Form.Label>
-                <Form.Control
-                    type="date"
-                    value={birthday}
-                    onChange={(e) => setBirthday(e.target.value)} required
-                />
-            </Form.Group>
-            <Form.Group controlId='button' className='text-center justify-content-md-center m-2'>
-                <Button type="submit">Register</Button>
-            </Form.Group>
-        </Form>
+        </div>
     );
 }

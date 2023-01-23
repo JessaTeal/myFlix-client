@@ -1,22 +1,4 @@
-$primary: red;
-$body-bg: white;
+$primary: lightgrey;
+$body-bg: darkgrey;
 
 @import ".././node_modules/bootstrap/scss/bootstrap.scss";
-
-* {
-    box-sizing: border-box;
-}
-
-body,
-html {
-    margin: 0 auto;
-    padding: 0
-}
-
-.app-container {
-    padding-right: 0;
-    padding-left: 0;
-    margin: 0;
-    border: 0;
-    padding: 0;
-}
