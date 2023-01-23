@@ -1,7 +1,21 @@
-img {
-    width: 350px;
-    height: auto;
+.image {
+    width: 75%;
 }
+
 .movie-title {
+    display: flex;
     font-size: 30px;
+    align-items: center;
+}
+
+.rightColumn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+}
+
+.movieInfoView {
+    background-color: teal;
+    margin: auto;
 }

@@ -1,0 +1,16 @@
+.body {
+    justify-content: left;
+}
+
+.header {
+    justify-content: left;
+}
+
+.buttons {
+    margin: 10px;
+}
+
+.favorites {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+}

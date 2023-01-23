@@ -1,4 +1,18 @@
+.movieInfo {
+    background-color: teal;
+    height: 150px;
+}
+
+
 .movieCard {
     margin-top: 20px;
 }
 
+.gridContainer {
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    grid-template-columns: auto auto auto auto;
+    column-gap: 25px;
+    height: auto;
+}

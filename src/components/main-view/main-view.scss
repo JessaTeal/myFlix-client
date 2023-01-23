@@ -1,0 +1,11 @@
+.Container {
+    display: grid;
+    column-gap: 10px;
+    grid-template-columns: auto auto auto auto;
+}
+
+.welcomeBack {
+    color: teal;
+    text-decoration: bold;
+    font-weight: bolder;
+}

@@ -1,4 +1,4 @@
-.app-container {
-    max-width: 100%;
-    margin-bottom: 20px;
-}
+$primary: lightgrey;
+$body-bg: darkgrey;
+
+@import ".././node_modules/bootstrap/scss/bootstrap.scss";
