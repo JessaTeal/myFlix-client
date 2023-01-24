@@ -9,7 +9,7 @@ import Navigation from '../../navbar.jsx';
 import { SignupView } from '../signup-view/signup-view';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { Container, Form } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 import { UpdateView } from '../update-view/update-view';
 import './main-view.scss';
 
@@ -25,19 +25,19 @@ export function MainView() {
 
 
     useEffect(() => {
-        if (!token) return;
+        if (token) {
 
 
-        fetch('https://jessaflix.herokuapp.com/movies', {
-            headers: { Authorization: `Bearer ${token}` },
-        })
-            .then((response) => response.json())
-            .then((movies) => {
-                setMovies(movies);
-            });
+            fetch('https://jessaflix.herokuapp.com/movies', {
+                headers: { Authorization: `Bearer ${token}` },
+            })
+                .then((response) => response.json())
+                .then((movies) => setMovies(movies));
+        };
     }, [token]);
 
-    const title = movies.filter(movie => movie.Title.toUpperCase() === input.toUpperCase() || movie.Genre.Name.toUpperCase() === input.toUpperCase() || movie.Director.Name.toUpperCase() === input.toUpperCase())
+
+    const title = movies.filter(movie => movie.Title.toUpperCase() === (input.toUpperCase()) || movie.Genre.Name.toUpperCase() === input.toUpperCase() || movie.Director.Name.toUpperCase() === (input.toUpperCase()))
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -181,7 +181,7 @@ export function MainView() {
                                     <Col>The list is empty!</Col>
                                 ) : (
                                     <>
-                                        ( <div className='text-center mb-5'>
+                                        <div className='text-center mb-5'>
                                             <h1 className='welcomeBack'>Welcome Back!</h1>
                                             <Form className='form justify-content-md-center m-2' onSubmit={handleSubmit}>
                                                 <Form.Group>

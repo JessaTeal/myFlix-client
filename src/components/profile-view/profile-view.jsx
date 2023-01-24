@@ -1,12 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Card, Row } from 'react-bootstrap';
-import { useParams } from 'react-router';
+import { Button } from 'react-bootstrap';
 import { MovieCard } from '../movie-card/movie-card';
-import { UpdateView } from '../update-view/update-view';
 import { Link } from 'react-router-dom';
 import './profile-view.scss';
-import Col from 'react-bootstrap/Col';
-import { arrayOf, element } from 'prop-types';
 
 
 export const ProfileView = ({ movies, onLoggedOut }) => {
@@ -19,15 +15,19 @@ export const ProfileView = ({ movies, onLoggedOut }) => {
 
     if (!token) return;
 
-    fetch('https://jessaflix.herokuapp.com/users/' + currentUser.Username, {
-        method: "GET",
-        headers: { Authorization: `Bearer ${token}` },
+    useEffect(() => {
+        if (!user) {
+            fetch('https://jessaflix.herokuapp.com/users/' + currentUser.Username, {
+                method: "GET",
+                headers: { Authorization: `Bearer ${token}` },
+            })
+                .then((response) => response.json(user))
+                .then(user => {
+                    setUser(user);
+                    localStorage.setItem("user", JSON.stringify(user));
+                })
+        }
     })
-        .then((response) => response.json(user))
-        .then(user => {
-            setUser(user);
-            localStorage.setItem("user", JSON.stringify(user));
-        })
 
     const moviesList = currentUser.FavoriteMovies
 
@@ -68,7 +68,7 @@ export const ProfileView = ({ movies, onLoggedOut }) => {
                     {moviesList.length === 0 ? ('Add Movies to Favorites!') :
                         movies.length && moviesList.map(movieID => {
                             const movie = movies.find(m => m._id === movieID)
-                            if (movie) return <MovieCard movie={movie} />;
+                            if (movie) return <div className='movieCard'><MovieCard movie={movie} /></div>;
                         })}
                 </p>
             </div>

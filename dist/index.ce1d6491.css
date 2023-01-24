@@ -12069,6 +12069,10 @@ textarea.form-control-lg {
   display: grid;
 }
 
+.movieCard {
+  margin: 10px;
+}
+
 .navigation {
   background-color: #a9a9a9;
   font-size: larger;
