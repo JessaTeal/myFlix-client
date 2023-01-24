@@ -9,7 +9,7 @@ import Navigation from '../../navbar.jsx';
 import { SignupView } from '../signup-view/signup-view';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { Container } from 'react-bootstrap';
+import { Container, Form } from 'react-bootstrap';
 import { UpdateView } from '../update-view/update-view';
 import './main-view.scss';
 
@@ -21,6 +21,8 @@ export function MainView() {
     const [token, setToken] = useState(storedToken ? storedToken : null);
     const [movies, setMovies] = useState([]);
     const [user, setUser] = useState(storedUser ? storedUser : null);
+    const [input, setInput] = useState("")
+
 
     useEffect(() => {
         if (!token) return;
@@ -34,6 +36,21 @@ export function MainView() {
                 setMovies(movies);
             });
     }, [token]);
+
+    const title = movies.filter(movie => movie.Title === input || movie.Genre.Name === input || movie.Director.Name === input)
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+
+        const data = {
+            Input: input
+        };
+
+        const title = (movies.filter(movie => movie.Title === input || movie.Genre.Name === input || movie.Director.Name === input));
+
+
+    };
+
 
 
     return (
@@ -167,10 +184,36 @@ export function MainView() {
                                     <Col>The list is empty!</Col>
                                 ) : (
                                     <>
-                                        <div className='text-center mb-5'>
+                                        ( <div className='text-center mb-5'>
                                             <h1 className='welcomeBack'>Welcome Back!</h1>
+                                            <Form className='form justify-content-md-center m-2' onSubmit={handleSubmit}>
+                                                <Form.Group>
+                                                    <Form.Control
+                                                        id='searchInput'
+                                                        className='typeSpace'
+                                                        placeholder={"Search"}
+                                                        type="text"
+                                                        onChange={(e) => setInput(e.target.value)}
+                                                    />
+
+                                                </Form.Group>
+                                            </Form>
+                                            <div>
+                                                <h3>Search Results for "{input}"</h3>
+                                                <Row>
+                                                    {title.map((title) => (
+                                                        <Col className='mb-5' key={title._id} md={2}>
+                                                            <MovieCard movie={title}
+                                                            />
+                                                        </Col>
+                                                    ))}
+                                                </Row>
+                                            </div>
+
+
                                         </div>
 
+                                        <h3 className='text-center mb-5'>Movies:</h3>
                                         {movies.map((movie) => (
                                             <Col className='mb-5' key={movie._id} md={3}>
                                                 <MovieCard movie={movie}
@@ -178,8 +221,8 @@ export function MainView() {
                                             </Col>
                                         ))}
                                     </>
-                                )}
-                            </>
+                                )
+                                }</>
                         } />
                 </Routes>
             </Row>

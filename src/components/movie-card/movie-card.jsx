@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import './movie-card.scss';
-import { Col, Row } from 'react-bootstrap';
+import { Col, Row, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 
