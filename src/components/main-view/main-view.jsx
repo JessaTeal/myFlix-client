@@ -37,7 +37,7 @@ export function MainView() {
             });
     }, [token]);
 
-    const title = movies.filter(movie => movie.Title === input || movie.Genre.Name === input || movie.Director.Name === input)
+    const title = movies.filter(movie => movie.Title.toUpperCase() === input.toUpperCase() || movie.Genre.Name.toUpperCase() === input.toUpperCase() || movie.Director.Name.toUpperCase() === input.toUpperCase())
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -45,9 +45,6 @@ export function MainView() {
         const data = {
             Input: input
         };
-
-        const title = (movies.filter(movie => movie.Title === input || movie.Genre.Name === input || movie.Director.Name === input));
-
 
     };
 
@@ -199,7 +196,7 @@ export function MainView() {
                                                 </Form.Group>
                                             </Form>
                                             <div>
-                                                <h3>Search Results for "{input}"</h3>
+                                                {!input ? null : <h3>Search Results for "{input}":</h3>}
                                                 <Row>
                                                     {title.map((title) => (
                                                         <Col className='mb-5' key={title._id} md={2}>
@@ -213,7 +210,7 @@ export function MainView() {
 
                                         </div>
 
-                                        <h3 className='text-center mb-5'>Movies:</h3>
+
                                         {movies.map((movie) => (
                                             <Col className='mb-5' key={movie._id} md={3}>
                                                 <MovieCard movie={movie}
